@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="shadow bg-neutral-800 bottom-0 ">
+    <footer className="shadow bg-neutral-800 fixed bottom-0 left-0 w-full max-w-[1440px]  right-0 mx-auto">
       <div className="w-full mx-auto p-4 ">
         <div className="sm:flex sm:items-center sm:justify-between p-1">
           <Link
