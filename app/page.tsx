@@ -1,3 +1,7 @@
 export default function Home() {
-  return <main className="min-h-screen">fkjbgfakgka </main>;
+  return (
+    <section>
+      <p>nfsfslfjs</p>
+    </section>
+  );
 }

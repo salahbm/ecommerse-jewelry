@@ -31,16 +31,16 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-neutral-800 fixed nav">
+    <div className="flex justify-between items-center w-full md:h-16 px-4 text-white bg-neutral-800 relative nav p-1">
       <div>
-        <h1 className="text-5xl font-signature ml-2">
+        <h1 className="text-2xl md:text-3xl font-signature ml-2">
           <a
             className="link-underline link-underline-black"
             href=""
             target="_blank"
             rel="noreferrer"
           >
-            Logo
+            Joni & Co
           </a>
         </h1>
       </div>
