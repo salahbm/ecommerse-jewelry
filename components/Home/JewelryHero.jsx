@@ -5,27 +5,26 @@ import Image from "next/image";
 import Link from "next/link";
 
 // nav icon
-import nav_icon_1 from "../../../../public/assets/img/slider/4/nav/icon-1.png";
-import nav_icon_2 from "../../../../public/assets/img/slider/4/nav/icon-2.png";
-import nav_icon_3 from "../../../../public/assets/img/slider/4/nav/icon-3.png";
-import nav_icon_4 from "../../../../public/assets/img/slider/4/nav/icon-4.png";
-import text_shape from "../../../../public/assets/img/slider/4/shape/rounded-test.png";
+import nav_icon_1 from "../../public/assets/img/slider/4/nav/icon-1.png";
+import nav_icon_2 from "../../public/assets/img/slider/4/nav/icon-2.png";
+import nav_icon_3 from "../../public/assets/img/slider/4/nav/icon-3.png";
+import nav_icon_4 from "../../public/assets/img/slider/4/nav/icon-4.png";
+import text_shape from "../../public/assets/img/slider/4/shape/rounded-test.png";
 // internal
-import slider_img_1 from "../../../../public/assets/img/slider/4/slider-1.png";
-import slider_img_2 from "../../../../public/assets/img/slider/4/slider-2.png";
-import slider_img_3 from "../../../../public/assets/img/slider/4/slider-3.png";
-import slider_img_4 from "../../../../public/assets/img/slider/4/slider-4.png";
+import slider_img_1 from "../../public/assets/img/slider/4/slider-1.png";
+import slider_img_2 from "../../public/assets/img/slider/4/slider-2.png";
+import slider_img_3 from "../../public/assets/img/slider/4/slider-3.png";
+import slider_img_4 from "../../public/assets/img/slider/4/slider-4.png";
 import {
   ArrowNextTwo,
   ArrowPrevTwo,
   Pause,
   Play,
-} from "../../../../public/assets/svg";
+} from "../../public/assets/svg";
 
-import "../../../../public/scss/main.scss";
+import "../../public/scss/main.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 // slider data
 const slider_data = [

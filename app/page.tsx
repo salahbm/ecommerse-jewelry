@@ -1,7 +1,9 @@
-export default function Home() {
+import HomeView from "./pages/Home/pages";
+
+export default function App() {
   return (
-    <section>
-      <p>nfsfslfjs</p>
-    </section>
+    <>
+      <HomeView />
+    </>
   );
 }

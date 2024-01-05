@@ -1,12 +1,11 @@
 import React from "react";
 import Link from "next/link";
 // internal
-import { ArrowRightLong } from "/assets/svg";
-import banner_bg_1 from "/assets/img/banner/4/banner-1.jpg";
-import banner_bg_2 from "/assets/img/banner/4/banner-2.jpg";
-import banner_bg_3 from "/assets/img/banner/4/banner-3.jpg";
-import banner_bg_4 from "/assets/img/banner/4/banner-4.jpg";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { ArrowRightLong } from "../../public/assets/svg";
+import banner_bg_1 from "../../public/assets/img/banner/4/banner-1.jpg";
+import banner_bg_2 from "../../public/assets/img/banner/4/banner-2.jpg";
+import banner_bg_3 from "../../public/assets/img/banner/4/banner-3.jpg";
+import banner_bg_4 from "../../public/assets/img/banner/4/banner-4.jpg";
 
 // BannerItem
 function BannerItem({ cls, bg_clr, bg, content, title, isBtn = false }) {
