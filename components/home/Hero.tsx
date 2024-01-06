@@ -60,7 +60,7 @@ const HomeHero = () => {
   // nav slider setting
   const nav_slider_setting = {
     infinite: true,
-    slidesToShow: 2,
+    slidesToShow: 3,
     slidesToScroll: 1,
     vertical: true,
     dots: false,
@@ -93,7 +93,7 @@ const HomeHero = () => {
           </div>
         ))}
       </Slider>
-      <div className="absolute bottom-24 font-semibold md:bottom-1/4 md:left-24 left-10 text-white  md:max-h-[100px] max-h-[50px]">
+      <div className="absolute bottom-[150px] font-semibold md:bottom-1/4 md:left-24 left-10 text-white  md:max-h-[100px] max-h-[50px]">
         <Slider
           {...nav_slider_setting}
           asNavFor={slider1}
