@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import slider_img_1 from "../../public/images/ring/ring-1.png";
-import slider_img_2 from "../../public/images/chain/chain.png";
-import slider_img_3 from "../../public/images/ring/ring-2.png";
-import slider_img_4 from "../../public/images/ring/ring-3.png";
-import nav_icon_1 from "../../public/images/stone/stone.png";
-import nav_icon_2 from "../../public/images/stone/stone-1.png";
-import nav_icon_3 from "../../public/images/stone/stone-2.png";
-import nav_icon_4 from "../../public/images/stone/stone-3.png";
+import slider_img_1 from "../../public/assets/images/ring/ring-1.png";
+import slider_img_2 from "../../public/assets/images/chain/chain.png";
+import slider_img_3 from "../../public/assets/images/ring/ring-2.png";
+import slider_img_4 from "../../public/assets/images/ring/ring-3.png";
+import nav_icon_1 from "../../public/assets/images/stone/stone.png";
+import nav_icon_2 from "../../public/assets/images/stone/stone-1.png";
+import nav_icon_3 from "../../public/assets/images/stone/stone-2.png";
+import nav_icon_4 from "../../public/assets/images/stone/stone-3.png";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -69,7 +69,7 @@ const HomeHero = () => {
     focusOnSelect: true,
   };
   return (
-    <div className="relative bg-gradient-to-r from-neutral-300 via-pink-100 to-red-200 mb-2 max-h-[450px]">
+    <div className="relative bg-gradient-to-r from-neutral-400 via-pink-200 to-red-100 mb-2 max-h-[450px]">
       <Slider
         {...main_slider_setting}
         asNavFor={slider2}
