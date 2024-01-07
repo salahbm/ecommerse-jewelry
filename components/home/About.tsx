@@ -10,15 +10,12 @@ const AboutSection = () => {
         <div className="md:w-1/2 relative">
           <div className="h-full w-full relative overflow-hidden rounded-lg group">
             <Image
-              layout="fill"
-              objectFit="cover"
+              width={900}
+              height={900}
               src="/assets/images/chain/chain-2.png"
               alt="About Image 1"
               className="rounded-lg transition duration-300 transform group-hover:scale-105"
             />
-            <div className="absolute top-0 left-0 w-full h-full flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <h3 className="text-white text-lg font-bold">Our Story</h3>
-            </div>
           </div>
         </div>
 
@@ -26,8 +23,8 @@ const AboutSection = () => {
         <div className="md:w-1/2 flex flex-col justify-center">
           <div className="w-3/4 mx-auto">
             <Image
-              width={300}
-              height={300}
+              width={600}
+              height={600}
               src="/assets/images/bracelet/bracelet-3.png"
               alt="About Image 2"
               className="w-full h-full object-cover rounded-lg shadow-md"
@@ -55,8 +52,8 @@ const AboutSection = () => {
         <div className="relative hidden md:block">
           <div className="h-60 w-full relative overflow-hidden rounded-lg group">
             <Image
-              layout="fill"
-              objectFit="cover"
+              width={300}
+              height={300}
               src="/assets/images/bracelet/bracelet-3.png"
               alt="About Image 1"
               className="rounded-lg transition duration-300 transform group-hover:scale-105"

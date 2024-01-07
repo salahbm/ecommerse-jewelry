@@ -27,8 +27,6 @@ const ContactUsSection = () => {
             alt="Logo"
             width={64}
             height={64}
-            layout="fixed"
-            objectFit="contain"
             className="w-16 h-16 object-contain"
           />
           <div className="md:w-1/2 flex flex-row items-center justify-center">

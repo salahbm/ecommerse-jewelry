@@ -81,6 +81,7 @@ const HomeHero = () => {
             <Image
               src={item.img}
               alt="slider img"
+              priority
               className="object-contain w-full md:max-h-[650px] max-h-[450px]"
             />
 

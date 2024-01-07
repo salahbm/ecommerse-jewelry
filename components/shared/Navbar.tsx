@@ -31,17 +31,12 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="flex justify-between items-center w-full md:h-16 px-4 z-[999] text-white bg-neutral-800 relative nav p-1">
+    <div className=" flex justify-between items-center w-full md:h-16 px-4 z-[999] text-white bg-neutral-800 relative nav p-1">
       <div>
         <h1 className="text-2xl md:text-3xl font-signature ml-2">
-          <a
-            className="link-underline link-underline-black"
-            href=""
-            target="_blank"
-            rel="noreferrer"
-          >
+          <Link className="link-underline link-underline-black" href="/">
             Joni & Co
-          </a>
+          </Link>
         </h1>
       </div>
 
@@ -70,7 +65,7 @@ const Navbar = () => {
               key={id}
               className="px-4 cursor-pointer capitalize py-6 text-4xl"
             >
-              <Link onClick={() => setNav(!nav)} href={link}>
+              <Link onClick={() => setNav(!nav)} href={`/pages/${link}`}>
                 {link}
               </Link>
             </li>

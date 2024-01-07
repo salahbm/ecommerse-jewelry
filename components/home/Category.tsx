@@ -49,6 +49,7 @@ const Category: FC = () => {
           alt={altText}
           width={300}
           height={300}
+          priority
           className={styles.cardBackground}
         />
         <div className={styles.cardContent}>
