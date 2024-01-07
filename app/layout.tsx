@@ -10,7 +10,7 @@ const spaceGrotesk = Kalam({
 });
 
 export const metadata: Metadata = {
-  title: "JoniAndCo",
+  title: "Welcome: Joni & Co",
   description: "Precious jewelries to make memories unforgetable",
 };
 

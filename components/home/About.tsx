@@ -12,7 +12,7 @@ const AboutSection = () => {
             <Image
               layout="fill"
               objectFit="cover"
-              src="/assets/images/bracelet/bracelet-3.png"
+              src="/assets/images/chain/chain-2.png"
               alt="About Image 1"
               className="rounded-lg transition duration-300 transform group-hover:scale-105"
             />
@@ -34,7 +34,9 @@ const AboutSection = () => {
             />
           </div>
           <div className="mt-4 text-center">
-            <p className="text-lg font-bold mb-2">Learn More About Us</p>
+            <p className="text-lg font-bold mb-2 text-amber-700">
+              Learn More About Us
+            </p>
             <p className="text-gray-600">
               Welcome to Joni&Co, where passion meets craftsmanship. Our
               handcrafted pieces blend tradition with innovation, embodying
@@ -59,9 +61,6 @@ const AboutSection = () => {
               alt="About Image 1"
               className="rounded-lg transition duration-300 transform group-hover:scale-105"
             />
-            <div className="absolute top-0 left-0 w-full h-full flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <h3 className="text-white text-lg font-bold">Our Story</h3>
-            </div>
           </div>
         </div>
 
@@ -71,13 +70,15 @@ const AboutSection = () => {
             <Image
               width={300}
               height={300}
-              src="/assets/images/bracelet/bracelet-3.png"
+              src="/assets/images/chain/chain-2.png"
               alt="About Image 2"
               className="w-full h-full object-cover rounded-lg shadow-md"
             />
           </div>
           <div className="mt-4 text-center">
-            <p className="text-lg font-bold mb-2">Learn More About Us</p>
+            <p className="text-lg font-bold mb-2 text-amber-700">
+              Learn More About Us
+            </p>
             <p className="text-gray-600 shadow-md  p-2 rounded-md px-4">
               Welcome to Joni&Co, where passion meets craftsmanship. Our
               handcrafted pieces blend tradition with innovation, embodying

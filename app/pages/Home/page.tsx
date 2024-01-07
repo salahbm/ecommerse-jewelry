@@ -3,6 +3,7 @@ import Category from "@/components/home/Category";
 import JewelryCollection from "@/components/home/Collection";
 import Features from "@/components/home/Features";
 import HomeHero from "@/components/home/Hero";
+import SocialMediaSection from "@/components/home/Socials";
 import ContactUs from "@/components/home/contact";
 
 import React from "react";
@@ -16,6 +17,7 @@ const Home = () => {
       <ContactUs />
       <JewelryCollection />
       <AboutSection />
+      <SocialMediaSection />
     </>
   );
 };
