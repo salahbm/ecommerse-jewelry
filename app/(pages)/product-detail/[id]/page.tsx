@@ -18,9 +18,9 @@ const ProductDetail = async ({ params }: pageProps) => {
                 <Image
                   width={500}
                   height={500}
-                  src="assets/images/ring/ring-1.png"
+                  src="/assets/images/ring/ring-1.png"
                   alt="ProductImage"
-                  className="object-cover w-full lg:h-full "
+                  className="object-contain w-full lg:h-full "
                 />
               </div>
               <div className="flex-wrap hidden md:flex ">
@@ -32,9 +32,9 @@ const ProductDetail = async ({ params }: pageProps) => {
                     <Image
                       width={500}
                       height={500}
-                      src="assets/images/ring/ring-1.png"
+                      src="/assets/images/ring/ring-1.png"
                       alt="ProductImage"
-                      className="object-cover w-full lg:h-20"
+                      className="object-contain w-full lg:h-20"
                     />
                   </a>
                 </div>
@@ -46,9 +46,9 @@ const ProductDetail = async ({ params }: pageProps) => {
                     <Image
                       width={500}
                       height={500}
-                      src="assets/images/ring/ring-1.png"
+                      src="/assets/images/ring/ring-1.png"
                       alt="ProductImage"
-                      className="object-cover w-full lg:h-20"
+                      className="object-contain w-full lg:h-20"
                     />
                   </a>
                 </div>
@@ -60,9 +60,9 @@ const ProductDetail = async ({ params }: pageProps) => {
                     <Image
                       width={500}
                       height={500}
-                      src="assets/images/ring/ring-1.png"
+                      src="/assets/images/ring/ring-1.png"
                       alt="ProductImage"
-                      className="object-cover w-full lg:h-20"
+                      className="object-contain w-full lg:h-20"
                     />
                   </a>
                 </div>
@@ -74,9 +74,9 @@ const ProductDetail = async ({ params }: pageProps) => {
                     <Image
                       width={500}
                       height={500}
-                      src="assets/images/ring/ring-1.png"
+                      src="/assets/images/ring/ring-1.png"
                       alt="ProductImage"
-                      className="object-cover w-full lg:h-20"
+                      className="object-contain w-full lg:h-20"
                     />
                   </a>
                 </div>
