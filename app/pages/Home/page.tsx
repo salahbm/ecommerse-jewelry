@@ -1,3 +1,5 @@
+import AboutSection from "@/components/home/About";
+import Category from "@/components/home/Category";
 import JewelryCollection from "@/components/home/Collection";
 import Features from "@/components/home/Features";
 import HomeHero from "@/components/home/Hero";
@@ -10,8 +12,10 @@ const Home = () => {
     <>
       <HomeHero />
       <Features />
+      <Category />
       <ContactUs />
       <JewelryCollection />
+      <AboutSection />
     </>
   );
 };

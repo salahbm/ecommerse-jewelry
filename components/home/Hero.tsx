@@ -69,19 +69,19 @@ const HomeHero = () => {
     focusOnSelect: true,
   };
   return (
-    <div className="relative bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#D2691E] mb-2 max-h-[450px]">
+    <div className="relative bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#D2691E] mb-2 md:max-h-[650px] max-h-[450px] rounded-b-md">
       <Slider
         {...main_slider_setting}
         asNavFor={slider2}
         ref={(slider: any) => setSlider1(slider)}
-        className="absolute w-full max-h-[450px]"
+        className="absolute w-full md:max-h-[650px] max-h-[450px]"
       >
         {slider_data.map((item, i) => (
           <div key={i} className="relative w-full flex-center">
             <Image
               src={item.img}
               alt="slider img"
-              className="object-contain w-full max-h-[450px]"
+              className="object-contain w-full md:max-h-[650px] max-h-[450px]"
             />
 
             <h3 className="absolute top-24 font-bold md:top-1/4 md:right-10 -right-16 text-white text-[32px] md:text-[44px]  md:text-center -rotate-90 md:rotate-0">

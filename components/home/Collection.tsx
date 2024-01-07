@@ -98,9 +98,9 @@ const JewelryCollection = () => {
             Jewelry Collection
           </h2>
           <Image
-            width={100}
-            height={100}
-            src="/assets/images/stone/stone.png" // Replace with your image URL
+            width={500}
+            height={500}
+            src="/assets/images/ring/wedding-ring.png" // Replace with your image URL
             alt="Jewelry Collection"
             className="w-full h-auto rounded-lg shadow-md mb-4"
           />
@@ -112,18 +112,14 @@ const JewelryCollection = () => {
               Explore our latest jewelry pieces inspired by the beauty of
               spring.
             </p>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
-              Shop Now
-              <FaArrowRight />
-            </button>
           </div>
         </div>
 
         <div className="mb-8">
           <Image
-            width={100}
-            height={100}
-            src="/assets/images/stone/stone.png" // Replace with your image URL
+            width={500}
+            height={500}
+            src="/assets/images/ear-ring/ear-ring.png" // Replace with your image URL
             alt="Jewelry Detail 1"
             className="w-full h-auto rounded-lg shadow-md mb-4"
           />
@@ -134,17 +130,14 @@ const JewelryCollection = () => {
             <p className="text-sm text-gray-600 mb-4">
               Adorn yourself with our exquisite collection of elegant necklaces.
             </p>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
-              Shop Now
-            </button>
           </div>
         </div>
 
         <div>
           <Image
-            width={100}
-            height={100}
-            src="/assets/images/stone/stone.png" // Replace with your image URL
+            width={500}
+            height={500}
+            src="/assets/images/chain/chain-1.png" // Replace with your image URL
             alt="Jewelry Detail 2"
             className="w-full h-auto rounded-lg shadow-md mb-4"
           />
@@ -155,8 +148,9 @@ const JewelryCollection = () => {
             <p className="text-sm text-gray-600 mb-4">
               Make a statement with our stunning collection of rings.
             </p>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
-              Shop Now
+            <button className="  text-neutral-600 underline text-decoration flex items-center justify-center  text-center   py-2 px-4 rounded-md hover:text-blue-300 transition duration-300">
+              <span className="mx-4">Shop Now</span>
+              <FaArrowRight />
             </button>
           </div>
         </div>
