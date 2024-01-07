@@ -4,6 +4,7 @@ import JewelryCollection from "@/components/home/Collection";
 import Features from "@/components/home/Features";
 import HomeHero from "@/components/home/Hero";
 import SocialMediaSection from "@/components/home/Socials";
+import Testimonials from "@/components/home/Testomonial";
 import ContactUs from "@/components/home/contact";
 
 import React from "react";
@@ -17,6 +18,7 @@ const Home = () => {
       <ContactUs />
       <JewelryCollection />
       <AboutSection />
+      <Testimonials />
       <SocialMediaSection />
     </>
   );
