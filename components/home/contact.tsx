@@ -22,16 +22,20 @@ const ContactUs = () => {
         </div>
 
         {/* Contact Information */}
-        <div className="md:w-1/2 relative">
-          <div className="absolute bottom-0 left-0 right-0 mb-8 mx-auto text-center">
-            <Image
-              src="/assets/images/stone/stone.png" // Replace with your logo URL
-              alt="Logo"
-              width={64}
-              height={64}
-              className="w-16 h-16 mx-auto mb-4"
-            />
+        <div className="md:w-1/2 relative mb-8 mx-auto text-center flex justify-between flex-col items-center py-8">
+          <Image
+            src="/assets/images/stone/stone.png" // Replace with your logo URL
+            alt="Logo"
+            width={64}
+            height={64}
+            className="w-16 h-16 mx-auto mb-4"
+          />
 
+          <p className="text-gray-600 text-center mb-8">
+            We'd love to hear from you! Reach out to us with any questions,
+            inquiries, or just to say hello. Here's how you can contact us:
+          </p>
+          <div>
             <p className="text-gray-600 mb-4">
               <FaMapMarkerAlt className="inline-block mr-2" />
               123 Street, City
@@ -44,7 +48,7 @@ const ContactUs = () => {
               <FaEnvelope className="inline-block mr-2" />
               info@example.com
             </p>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
+            <button className="bg-blue-500 text-white py-2 px-4 rounded-md max-w-[120px] hover:bg-blue-600 transition duration-300">
               Contact Us
             </button>
           </div>

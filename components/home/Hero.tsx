@@ -69,7 +69,7 @@ const HomeHero = () => {
     focusOnSelect: true,
   };
   return (
-    <div className="relative bg-gradient-to-r from-neutral-400 via-pink-200 to-red-100 mb-2 max-h-[450px]">
+    <div className="relative bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#D2691E] mb-2 max-h-[450px]">
       <Slider
         {...main_slider_setting}
         asNavFor={slider2}
@@ -117,7 +117,7 @@ const HomeHero = () => {
       >
         <Button type="button">Discover Now</Button>
       </Link>
-      <div className="absolute right-10 bottom-10 z-1 cursor-pointer ">
+      <div className="absolute right-10 bottom-10 z-1 cursor-pointer text-neutral-700">
         <button
           className="m-1 p-1 hover:text-neutral-100 hover:border rounded-full"
           onClick={() => slider1?.slickPrev()}
