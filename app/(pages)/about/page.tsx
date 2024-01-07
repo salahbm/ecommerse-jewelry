@@ -1,3 +1,4 @@
+import Features from "@/components/home/Features";
 import { BiAlarm, BiFile } from "react-icons/bi";
 import { FaPeopleCarry, FaPersonBooth } from "react-icons/fa";
 
@@ -96,6 +97,8 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+      <Features />
+      
     </section>
     // Other About Us styles...
   );

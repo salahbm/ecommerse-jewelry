@@ -1,3 +1,4 @@
+import Features from "@/components/home/Features";
 import React from "react";
 
 const Contact = () => {
@@ -216,6 +217,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      <Features />
     </div>
   );
 };

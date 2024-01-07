@@ -23,11 +23,11 @@ const ContactUsSection = () => {
         {/* Contact Information */}
         <div className="md:w-1/2 relative mb-8 text-center flex justify-between flex-col items-center py-8 max-h-full">
           <Image
-            src="/assets/images/stone/stone.png" // Replace with your logo URL
+            src="/logo-white.svg" // Replace with your logo URL
             alt="Logo"
-            width={64}
-            height={64}
-            className="w-16 h-16 object-contain"
+            width={200}
+            height={110}
+            className=" object-contain"
           />
           <div className="md:w-1/2 flex flex-row items-center justify-center">
             <video
