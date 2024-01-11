@@ -17,6 +17,7 @@ import { formSchemaSignIn } from "@/lib/validation";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SingIn = () => {
   const router = useRouter();
@@ -50,7 +51,13 @@ const SingIn = () => {
     <main className="flex-center max-h-screen  p-10">
       <div className="sm:w-420 flex-center justify-between flex-col md:flex-row">
         {/* Image */}
-        <img src="/assets/images/signIn.svg" className="md:w-1/2" />
+        <Image
+          src="/assets/images/banner/loginBanner.jpeg"
+          className="md:w-1/2"
+          width={1000}
+          height={1000}
+          alt="Log In banner"
+        />
         <div>
           <Form {...form}>
             <form
@@ -72,7 +79,7 @@ const SingIn = () => {
                       <FormLabel>Your Email</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="nialabs@gmail.com"
+                          placeholder="joniandco@gmail.com"
                           type="email"
                           {...field}
                         />
@@ -116,7 +123,7 @@ const SingIn = () => {
           <Button
             className="text-white"
             type="button"
-            variant={"secondary"}
+            variant={"default"}
             onClick={() => signIn("github")}
           >
             Sign In with Github
@@ -124,7 +131,7 @@ const SingIn = () => {
           <Button
             className="text-white m-1"
             type="button"
-            variant={"secondary"}
+            variant={"default"}
             onClick={() => signIn("google")}
           >
             Sign In with Google

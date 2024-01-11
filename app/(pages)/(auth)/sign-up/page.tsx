@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validation";
 import { saveUsers } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +59,13 @@ const SignUp = () => {
       <Form {...form}>
         <div className="sm:w-420 flex-center justify-between flex-col md:flex-row">
           {/* Image */}
-          <img src="/assets/images/signUp.svg" className="md:w-1/2" />
+          <Image
+               width={1000}
+               height={1000}
+            src="/assets/images/banner/createBanner.jpg"
+            className="md:w-1/2"
+            alt="Log In banner"
+          />
           <form
             id="signUpForm"
             onSubmit={form.handleSubmit(onSubmit, onInvalid)}
@@ -92,7 +99,7 @@ const SignUp = () => {
                     <FormLabel>Your Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="nialabs@gmail.com"
+                        placeholder="mrjoniandco@gmail.com"
                         type="email"
                         {...field}
                       />
