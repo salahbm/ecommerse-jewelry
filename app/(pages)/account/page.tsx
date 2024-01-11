@@ -1,5 +1,6 @@
 "use client";
 import Features from "@/components/home/Features";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import {
@@ -10,8 +11,46 @@ import {
   FaRegHeart,
 } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Account = () => {
+  const { data: session, status: isLoading } = useSession();
+  const options = [
+    { label: "My Account", type: "label" },
+    {
+      label: "Profile",
+      type: "item",
+      onClick: () => console.log("Profile clicked"),
+    },
+    {
+      label: "Billing",
+      type: "item",
+      onClick: () => console.log("Billing clicked"),
+    },
+    { label: "Team", type: "item", onClick: () => console.log("Team clicked") },
+    {
+      label: "Subscription",
+      type: "item",
+      onClick: () => console.log("Subscription clicked"),
+    },
+  ];
+
+  const handleOptionSelected = (selected: any) => {
+    if (
+      selected.length > 0 &&
+      selected[0].type === "item" &&
+      selected[0].onClick
+    ) {
+      selected[0].onClick();
+    }
+  };
   return (
     <>
       <section className="container mx-auto w-full flex-grow max-w-[1200px] border-b py-5 md:flex md:flex-row md:py-10 ">
@@ -105,13 +144,13 @@ const Account = () => {
           <div className="flex py-5">
             <div className="flex w-full">
               <div className="flex flex-col gap-2">
-                <Link
-                  href="#"
+                <button
+                  onClick={() => signOut()}
                   className="flex items-center gap-2 font-medium active:text-violet-900"
                 >
                   <IoIosLogOut />
                   Log Out
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -131,9 +170,19 @@ const Account = () => {
           </div>
 
           <div className="flex gap-3 items-center justify-center">
-            <button className="border bg-amber-500 py-2 px-2 rounded-md">
-              Profile settings
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="border bg-amber-500 py-2 px-2 rounded-md">
+                Profile settings
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel> Manage account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>My Order History</DropdownMenuItem>
+                <DropdownMenuItem>WishList</DropdownMenuItem>
+
+                <DropdownMenuItem>Log Out</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
