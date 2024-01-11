@@ -30,7 +30,11 @@ const Account = () => {
             <FaUser width="60px" height="60px" className="rounded-full " />
             <div className="ml-5">
               <p className="font-medium text-gray-500">Hello,</p>
-              <p className="font-bold">Sarah Johnson</p>
+              {session?.user.email ? (
+                <span className="font-bold"> {session?.user?.email}</span>
+              ) : (
+                <p className="font-bold">Dear User</p>
+              )}
             </div>
           </div>
         </div>
@@ -134,7 +138,11 @@ const Account = () => {
               <FaUser width="60px" height="60px" className="rounded-full " />
               <div className="ml-5">
                 <p className="font-medium text-gray-500">Hello,</p>
-                <p className="font-bold">Sarah Johnson</p>
+                {session?.user.email ? (
+                  <span className="font-bold"> {session?.user?.email}</span>
+                ) : (
+                  <p className="font-bold">Dear User</p>
+                )}
               </div>
             </div>
           </div>
