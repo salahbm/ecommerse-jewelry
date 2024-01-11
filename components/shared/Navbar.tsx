@@ -1,10 +1,12 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const { data: session } = useSession();
 
   const links = [
     {
@@ -46,7 +48,9 @@ const Navbar = () => {
             key={id}
             className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 hover:text-white duration-200 link-underline"
           >
-            <Link href={link}>{link}</Link>
+            <Link href={!session && link === "account" ? "sign-in" : link}>
+              {link}
+            </Link>
           </li>
         ))}
       </ul>
@@ -65,7 +69,10 @@ const Navbar = () => {
               key={id}
               className="px-4 cursor-pointer capitalize py-6 text-4xl"
             >
-              <Link onClick={() => setNav(!nav)} href={link}>
+              <Link
+                onClick={() => setNav(!nav)}
+                href={!session && link === "account" ? "sign-in" : link}
+              >
                 {link}
               </Link>
             </li>

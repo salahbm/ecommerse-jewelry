@@ -8,11 +8,11 @@ import bcrypt from "bcryptjs";
 // User Actions
 export async function saveUsers(users: any) {
   if (!users) return;
-  let newUser;
+
   try {
     await connectDB();
 
-    const existingUser = await User.findOne({ _id: users._id });
+    const existingUser = await User.findOne({ email: users.email });
 
     if (existingUser) {
       console.log("User exists", existingUser);
@@ -21,21 +21,38 @@ export async function saveUsers(users: any) {
         status: 400,
       });
     } else {
-      // Create a new user
+      // Create a new user with limited information
       const hashedPassword = await bcrypt.hash(users.password, 5);
-      newUser = new User({
+      const newUser = new User({
         username: users.name,
         email: users.email,
         password: hashedPassword,
-        phoneNumber: users.phoneNumber,
+        personalInfo: {
+          firstName: undefined,
+          lastName: undefined,
+          phoneNumber: users.phoneNumber,
+        },
+        address: {
+          street: undefined,
+          city: undefined,
+          state: undefined,
+          zipCode: undefined,
+          fullAddress: undefined,
+        },
+        billingInfo: {
+          cardNumber: undefined,
+          cardHolderName: undefined,
+          expirationDate: undefined,
+          cvv: undefined,
+        },
       });
 
       // Save the user to the database
       await newUser.save();
       console.log("User created successfully");
+
+      return newUser;
     }
-    // new NextResponse("User is registered", { status: 200 }),
-    return newUser;
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
   }

@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 
 const addressSchema = new mongoose.Schema({
-  street: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  zipCode: { type: String, required: true },
+  street: { type: String },
+  city: { type: String },
+  state: { type: String },
+  zipCode: { type: String },
   fullAddress: { type: String },
 });
 
 const billingInfoSchema = new mongoose.Schema({
-  cardNumber: { type: String, required: true },
-  cardHolderName: { type: String, required: true },
-  expirationDate: { type: String, required: true },
-  cvv: { type: String, required: true },
+  cardNumber: { type: String },
+  cardHolderName: { type: String },
+  expirationDate: { type: String },
+  cvv: { type: String },
 });
 
 const userSchema = new mongoose.Schema(
@@ -21,12 +21,12 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
     personalInfo: {
-      firstName: { type: String, required: true },
-      lastName: { type: String, required: true },
-      phoneNumber: { type: String, required: true },
+      firstName: { type: String },
+      lastName: { type: String },
+      phoneNumber: { type: String },
     },
-    address: { type: addressSchema, required: true },
-    billingInfo: { type: billingInfoSchema, required: true },
+    address: { type: addressSchema },
+    billingInfo: { type: billingInfoSchema },
   },
   { timestamps: true }
 );

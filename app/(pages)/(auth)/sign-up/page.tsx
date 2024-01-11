@@ -165,11 +165,11 @@ const SignUp = () => {
                 );
               }}
             />
+            <Button type="submit" className="w-full">
+              {isLoading ? "Creating..." : "Submit"}
+            </Button>
           </form>
         </Form>
-        <Button type="submit" className="w-full">
-          {isLoading ? "Creating..." : "Submit"}
-        </Button>
         <p className=" text-start mt-2 ">
           Don't have account ?{" "}
           <Link href={"./sign-in"} className="text-blue-500 font-bold">
