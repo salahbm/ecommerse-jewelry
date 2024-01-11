@@ -55,24 +55,27 @@ const SignUp = () => {
   const onInvalid = (errors: any) => console.error(errors);
 
   return (
-    <main className="flex items-center max-h-screen justify-center p-2 px-4">
-      <Form {...form}>
-        <div className="sm:w-420 flex-center justify-between flex-col md:flex-row">
-          {/* Image */}
-          <Image
-               width={1000}
-               height={1000}
-            src="/assets/images/banner/createBanner.jpg"
-            className="md:w-1/2"
-            alt="Log In banner"
-          />
+    <main className="flex  md:justify-between flex-col md:flex-row justify-center">
+      {/* Image */}
+
+      <Image
+        width={2000}
+        height={2000}
+        src="/assets/images/banner/banner.jpg"
+        alt="Log In banner"
+        className=" md:max-h-full max-h-[450px] object-cover md:w-1/2"
+      />
+      <div className=" flex-center justify-between flex-col p-2 md:w-1/2">
+        <Form {...form}>
           <form
             id="signUpForm"
             onSubmit={form.handleSubmit(onSubmit, onInvalid)}
             className="flex flex-col gap-2 w-full mt-1"
           >
-            <h2 className="h3-hold md:h2-bold pt-5 sm:pt-8">Log In Account</h2>
-            <p className="text-light-3 small-medium md:base-regular mt-1">
+            <h2 className="font-bold pt-5 sm:pt-8 text-amber-500 text-lg font-serif">
+              Log In Account
+            </h2>
+            <p className="text-light-3 small-medium md:base-regular text-neutral-600 text-lg font-serif font-semibold">
               Please Sign in to continue your journey
             </p>
             <FormField
@@ -83,7 +86,7 @@ const SignUp = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Kim John" type="name" {...field} />
+                      <Input placeholder="John Wick" type="name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -162,19 +165,18 @@ const SignUp = () => {
                 );
               }}
             />
-
-            <Button type="submit" className="w-full">
-              {isLoading ? "Creating..." : "Submit"}
-            </Button>
-            <p className=" text-start mt-2 ">
-              Don't have account ?{" "}
-              <Link href={"./sign-in"} className="text-blue-500 font-bold">
-                Sign In
-              </Link>
-            </p>
           </form>
-        </div>
-      </Form>
+        </Form>
+        <Button type="submit" className="w-full">
+          {isLoading ? "Creating..." : "Submit"}
+        </Button>
+        <p className=" text-start mt-2 ">
+          Don't have account ?{" "}
+          <Link href={"./sign-in"} className="text-blue-500 font-bold">
+            Sign In
+          </Link>
+        </p>
+      </div>
     </main>
   );
 };
