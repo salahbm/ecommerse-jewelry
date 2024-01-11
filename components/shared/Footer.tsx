@@ -7,14 +7,9 @@ const Footer = () => {
       <div className="w-full mx-auto p-4 ">
         <div className="sm:flex sm:items-center sm:justify-between p-1">
           <Link
-            href="https://flowbite.com/"
+            href="/"
             className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
-              alt="Joni & Co Logo"
-            />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
               Joni & Co
             </span>
@@ -41,7 +36,7 @@ const Footer = () => {
         <hr className="md:my-6 my-1 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
           © 2023{" "}
-          <Link href="https://flowbite.com/" className="hover:underline">
+          <Link href="/" className="hover:underline">
             Joni & Co™
           </Link>
           . All Rights Reserved.
