@@ -5,6 +5,7 @@ import User from "../model/user.model";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { UserTypes } from "@/types/user";
+import mongoose from "mongoose";
 
 // User Actions
 export async function saveUsers(users: UserTypes) {
@@ -146,5 +147,20 @@ export async function updateShippingInfo(
     return updatedUser;
   } catch (error: any) {
     throw new Error(`Failed to update shipping information: ${error.message}`);
+  }
+}
+
+// get current user
+export async function getUserByEmail(email: string) {
+  try {
+    await connectDB();
+    const user = await User.findOne({ email });
+
+    if (!user) return null;
+
+    return user;
+  } catch (error: any) {
+    console.log("Can't find user by email", error.message);
+    throw new Error("Error finding user by email");
   }
 }

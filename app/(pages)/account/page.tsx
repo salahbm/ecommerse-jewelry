@@ -1,14 +1,8 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
-import {
-  FaUser,
-  FaBox,
-  FaAddressCard,
-  FaRegCreditCard,
-  FaRegHeart,
-} from "react-icons/fa";
+import { FaUser, FaBox, FaAddressCard, FaRegHeart } from "react-icons/fa";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import {
@@ -24,14 +18,30 @@ import { Button } from "@/components/ui/button";
 import PersonalInfo from "@/forms/account/PersonalInfo";
 import BillingInfo from "@/forms/account/BillingInfo";
 import ShippingInfo from "@/forms/account/Shipping";
+import { getUserByEmail } from "@/lib/auth";
+import { UserTypes } from "@/types/user";
 
 const Account = () => {
   const { data: session, status: isLoading } = useSession();
+  const [user, setUser] = useState<UserTypes | any[]>([]);
+
   const [editForms, setEditForms] = useState({
     personal: false,
     shipping: false,
     billing: false,
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session?.user?.email && isLoading != "loading") {
+        const currentUser = await getUserByEmail(session?.user.email);
+        console.log(`currentUser:`, currentUser);
+        setUser(currentUser);
+      }
+    };
+
+    fetchData();
+  }, [session?.user?.email, isLoading]);
 
   return (
     <>
@@ -58,57 +68,54 @@ const Account = () => {
               <div className="w-full">
                 <div className="flex w-full">
                   <div className="flex flex-col gap-2">
-                    <div
-
-                      className="flex items-center gap-2 font-medium text-violet-900"
-                    >
+                    <div className="flex items-center gap-2 font-medium text-violet-900">
                       <FaAddressCard />
                       Manage account
                     </div>
                     <button
-type='button'
-       onClick={(event) => {
-                      event.preventDefault();
-                      setEditForms({
-                        ...editForms,
-                        personal: true,
-                        billing:false,
-                        shipping :false
-                      });
-                    }}
+                      type="button"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setEditForms({
+                          ...editForms,
+                          personal: true,
+                          billing: false,
+                          shipping: false,
+                        });
+                      }}
                       className="active:blue-900 text-gray-500 duration-100 hover:text-amber-500"
                     >
                       Profile information
                     </button>
                     <button
-type='button'
-       onClick={(event) => {
-                      event.preventDefault();
-                      setEditForms({
-                        ...editForms,
-                        personal: false,
-                        shipping:true,
-                        billing: false
-                      });
-                    }}
+                      type="button"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setEditForms({
+                          ...editForms,
+                          personal: false,
+                          shipping: true,
+                          billing: false,
+                        });
+                      }}
                       className="text-gray-500 duration-100 hover:text-amber-500"
                     >
                       Manage Addresses
                     </button>
                     <button
-type='button'
-       onClick={(event) => {
-                      event.preventDefault();
-                      setEditForms({
-                        ...editForms,
-                        personal: false,
-                        shipping:false,
-                        billing: true
-                      });
-                    }}
+                      type="button"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setEditForms({
+                          ...editForms,
+                          personal: false,
+                          shipping: false,
+                          billing: true,
+                        });
+                      }}
                       className="text-gray-500 duration-100 hover:text-amber-500"
                     >
-               Manage Billing
+                      Manage Billing
                     </button>
                   </div>
                 </div>
@@ -137,7 +144,7 @@ type='button'
                     className="flex items-center gap-2 font-medium active:text-violet-900"
                   >
                     <MdOutlinePrivacyTip />
-Privacy Policy
+                    Privacy Policy
                   </Link>
                 </div>
               </div>
@@ -225,7 +232,7 @@ Privacy Policy
             </div>
           </div>
           <div className="flex flex-col h-full w-full">
-            <section className=" md:hidden block grid w-full max-w-[1200px] grid-cols-1 gap-3 px-5 md:grid-cols-3 ">
+            <section className=" md:hidden  grid w-full max-w-[1200px] grid-cols-1 gap-3 px-5 md:grid-cols-3 ">
               <div className="border shadow-md rounded-md  max-h-[60px]">
                 <div className="flex justify-between items-center px-3 ">
                   <p className="font-bold">Personal Profile</p>
