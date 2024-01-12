@@ -41,3 +41,30 @@ export const PersonalInfoForm = z.object({
     .min(10, { message: "Phone number must be at least 10 characters long" })
     .max(15, { message: "Phone number cannot be longer than 15 characters" }),
 });
+
+export const BillingInfoForm = z.object({
+  cardNumber: z
+    .string()
+    .min(16, { message: "Card number must be at least 16 characters long" })
+    .max(16, { message: "Card number must be at most 16 characters long" }),
+  cardHolderName: z
+    .string()
+    .min(4, { message: "Last name must be at least 4 characters long" })
+    .max(50, { message: "Last name cannot be longer than 50 characters" }),
+  expirationDate: z
+    .string()
+    .min(2, { message: "Expiration date must be at least 2 characters long" })
+    .max(50, {
+      message: "Expiration date cannot be longer than 50 characters",
+    }),
+  cvv: z
+    .string()
+    .min(3, { message: "CVV must be at least 3 characters long" })
+    .max(4, { message: "CVV must be at most 4 characters long" }),
+});
+export const ShippingInfoForm = z.object({
+  street: z.string().min(2, { message: 'Street must be at least 2 characters long' }),
+  city: z.string().min(2, { message: 'City must be at least 2 characters long' }),
+  state: z.string().min(2, { message: 'State must be at least 2 characters long' }),
+  zipCode: z.string().min(5, { message: 'Zip code must be at least 5 characters long' }),
+});

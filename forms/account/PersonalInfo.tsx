@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -14,14 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PersonalInfoForm } from "@/lib/validation";
-import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const PersonalInfo = () => {
-  const router = useRouter();
-  const session = useSession();
   const form = useForm<z.infer<typeof PersonalInfoForm>>({
     resolver: zodResolver(PersonalInfoForm),
     defaultValues: {
@@ -31,36 +25,14 @@ const PersonalInfo = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof PersonalInfoForm>) => {
-    const res = await signIn("credentials", {
-      redirect: false,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      phoneNumber: values.phoneNumber,
-    });
-    if (res?.error) {
-      alert("Invalid email or password");
-    }
-    if (res?.url) router.replace("/");
-  };
+  const onSubmit = async (values: z.infer<typeof PersonalInfoForm>) => {};
 
-  useEffect(() => {
-    if (session?.status === "authenticated") {
-      router.replace("/");
-    }
-  }, [session, router]);
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-5 w-full mt-4"
       >
-        <h2 className="font-bold pt-5 sm:pt-8 text-amber-500 text-lg font-serif">
-          Log In Account
-        </h2>
-        <p className="text-light-3 small-medium md:base-regular text-neutral-600 text-lg font-serif font-semibold">
-          Please Sign in to continue your journey
-        </p>
         <FormField
           control={form.control}
           name="firstName"
@@ -84,7 +56,7 @@ const PersonalInfo = () => {
               <FormItem>
                 <FormLabel>Last Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Black" type="text" {...field} />
+                  <Input placeholder="Wick" type="text" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

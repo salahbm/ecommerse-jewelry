@@ -1,7 +1,7 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import {
   FaUser,
   FaBox,
@@ -9,6 +9,7 @@ import {
   FaRegCreditCard,
   FaRegHeart,
 } from "react-icons/fa";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import {
   DropdownMenu,
@@ -20,9 +21,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Loader } from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
+import PersonalInfo from "@/forms/account/PersonalInfo";
+import BillingInfo from "@/forms/account/BillingInfo";
+import ShippingInfo from "@/forms/account/Shipping";
 
 const Account = () => {
   const { data: session, status: isLoading } = useSession();
+  const [editForms, setEditForms] = useState({
+    personal: false,
+    shipping: false,
+    billing: false,
+  });
 
   return (
     <>
@@ -49,31 +58,58 @@ const Account = () => {
               <div className="w-full">
                 <div className="flex w-full">
                   <div className="flex flex-col gap-2">
-                    <Link
-                      href="#"
+                    <div
+
                       className="flex items-center gap-2 font-medium text-violet-900"
                     >
                       <FaAddressCard />
                       Manage account
-                    </Link>
-                    <Link
-                      href="profile-information.html"
+                    </div>
+                    <button
+type='button'
+       onClick={(event) => {
+                      event.preventDefault();
+                      setEditForms({
+                        ...editForms,
+                        personal: true,
+                        billing:false,
+                        shipping :false
+                      });
+                    }}
                       className="active:blue-900 text-gray-500 duration-100 hover:text-amber-500"
                     >
                       Profile information
-                    </Link>
-                    <Link
-                      href="manage-address.html"
+                    </button>
+                    <button
+type='button'
+       onClick={(event) => {
+                      event.preventDefault();
+                      setEditForms({
+                        ...editForms,
+                        personal: false,
+                        shipping:true,
+                        billing: false
+                      });
+                    }}
                       className="text-gray-500 duration-100 hover:text-amber-500"
                     >
                       Manage Addresses
-                    </Link>
-                    <Link
-                      href="change-password.html"
+                    </button>
+                    <button
+type='button'
+       onClick={(event) => {
+                      event.preventDefault();
+                      setEditForms({
+                        ...editForms,
+                        personal: false,
+                        shipping:false,
+                        billing: true
+                      });
+                    }}
                       className="text-gray-500 duration-100 hover:text-amber-500"
                     >
-                      Change password
-                    </Link>
+               Manage Billing
+                    </button>
                   </div>
                 </div>
               </div>
@@ -100,8 +136,8 @@ const Account = () => {
                     href="payment-methods.html"
                     className="flex items-center gap-2 font-medium active:text-violet-900"
                   >
-                    <FaRegCreditCard />
-                    Payment Methods
+                    <MdOutlinePrivacyTip />
+Privacy Policy
                   </Link>
                 </div>
               </div>
@@ -188,35 +224,81 @@ const Account = () => {
               )}
             </div>
           </div>
-
-          <section className="grid w-full max-w-[1200px] grid-cols-1 gap-3 px-5 md:grid-cols-3 ">
-            <div className="border shadow-md rounded-md  max-h-[60px]">
-              <div className="flex justify-between items-center p-4 ">
-                <p className="font-bold">Personal Profile</p>
-                <Button className="text-sm text-violet-900" type="button">
-                  Edit
-                </Button>
+          <div className="flex flex-col h-full w-full">
+            <section className=" md:hidden block grid w-full max-w-[1200px] grid-cols-1 gap-3 px-5 md:grid-cols-3 ">
+              <div className="border shadow-md rounded-md  max-h-[60px]">
+                <div className="flex justify-between items-center px-3 ">
+                  <p className="font-bold">Personal Profile</p>
+                  <Button
+                    className="text-sm text-violet-900"
+                    type="button"
+                    variant="link"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setEditForms({
+                        ...editForms,
+                        personal: true,
+                      });
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </div>
               </div>
-            </div>
-            <div className="border shadow-md rounded-md max-h-[60px]">
-              <div className="flex justify-between items-center p-4 ">
-                <p className="font-bold">Shipping Address</p>
-                <Button className="text-sm text-violet-900" type="button">
-                  Edit
-                </Button>
+              <div className="border shadow-md rounded-md max-h-[60px]">
+                <div className="flex justify-between items-center px-3 ">
+                  <p className="font-bold">Shipping Address</p>
+                  <Button
+                    className="text-sm text-violet-900"
+                    type="button"
+                    variant="link"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setEditForms({
+                        ...editForms,
+                        billing: false,
+                        personal: false,
+                        shipping: true,
+                      });
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </div>
               </div>
-            </div>
-            <div className="border shadow-md rounded-md max-h-[60px]">
-              <div className="flex justify-between items-center p-4 ">
-                <p className="font-bold">Billing Address</p>
-                <Button className="text-sm text-violet-900" type="button">
-                  Edit
-                </Button>
+              <div className="border shadow-md rounded-md max-h-[60px]">
+                <div className="flex justify-between items-center px-3 ">
+                  <p className="font-bold">Billing Address</p>
+                  <Button
+                    className="text-sm text-violet-900"
+                    type="button"
+                    variant="link"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setEditForms({
+                        ...editForms,
+                        billing: true,
+                        personal: false,
+                      });
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </div>
               </div>
+            </section>
+            <div className="px-5 w-full">
+              {editForms.personal ? (
+                <PersonalInfo />
+              ) : editForms.billing ? (
+                <BillingInfo />
+              ) : editForms.shipping ? (
+                <ShippingInfo />
+              ) : null}
             </div>
-          </section>
+          </div>
         </section>
-      )}{" "}
+      )}
     </>
   );
 };
