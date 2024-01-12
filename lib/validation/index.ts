@@ -24,3 +24,20 @@ export const formSchemaSignIn = z.object({
     .string()
     .min(6, { message: "Password must be at least 6 characters." }),
 });
+
+// account info
+
+export const PersonalInfoForm = z.object({
+  firstName: z
+    .string()
+    .min(2, { message: "First name must be at least 2 characters long" })
+    .max(50, { message: "First name cannot be longer than 50 characters" }),
+  lastName: z
+    .string()
+    .min(2, { message: "Last name must be at least 2 characters long" })
+    .max(50, { message: "Last name cannot be longer than 50 characters" }),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 characters long" })
+    .max(15, { message: "Phone number cannot be longer than 15 characters" }),
+});

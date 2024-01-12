@@ -18,6 +18,7 @@ import { formSchema } from "@/lib/validation";
 import { saveUsers } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { UserTypes } from "@/types/user";
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,11 +33,11 @@ const SignUp = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema> | any) => {
     try {
       // Create a new user
       setIsLoading(true);
-      const user = await saveUsers(values);
+      const user: UserTypes = await saveUsers(values);
       if (user) {
         alert(`User successfully created ${user?.username}`);
         router.push("/pages/sign-in");
