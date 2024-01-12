@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
-  name: z
+  username: z
     .string()
     .min(2, { message: "Name must be at least 2 characters." })
     .max(50, { message: "Name cannot exceed 50 characters." }),
@@ -13,14 +13,6 @@ export const formSchema = z.object({
     .string()
     .min(6, { message: "Password must be at least 6 characters." }),
   passwordConfirm: z.string(),
-  phoneNumber: z
-    .string()
-    .min(10, {
-      message: "Must be a valid mobile number with at least 10 digits.",
-    })
-    .max(14, {
-      message: "Must be a valid mobile number with at most 14 digits.",
-    }),
 });
 
 export const formSchemaSignIn = z.object({

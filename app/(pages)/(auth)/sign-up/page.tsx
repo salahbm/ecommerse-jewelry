@@ -25,26 +25,22 @@ const SignUp = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      username: "",
       email: "",
       password: "",
       passwordConfirm: "",
-      phoneNumber: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("onSubmit is called with values:", values);
     try {
       // Create a new user
       setIsLoading(true);
-      console.log("clicked to submit");
-
       const user = await saveUsers(values);
       if (user) {
-        alert(`User successfully created ${user?.email}`);
+        alert(`User successfully created ${user?.username}`);
+        router.push("/pages/sign-in");
         setIsLoading(false);
-        router.replace("/pages/sign-in");
       }
       console.log("User created successfully");
     } catch (error: any) {
@@ -55,7 +51,7 @@ const SignUp = () => {
   const onInvalid = (errors: any) => console.error(errors);
 
   return (
-    <main className="flex  md:justify-between flex-col md:flex-row justify-center">
+    <main className="flex  md:justify-between flex-col md:flex-row justify-center md:h-full">
       {/* Image */}
 
       <Image
@@ -80,13 +76,17 @@ const SignUp = () => {
             </p>
             <FormField
               control={form.control}
-              name="name"
+              name="username"
               render={({ field }: any) => {
                 return (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Wick" type="name" {...field} />
+                      <Input
+                        placeholder="John Wick"
+                        type="username"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,21 +112,7 @@ const SignUp = () => {
                 );
               }}
             />
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }: any) => {
-                return (
-                  <FormItem>
-                    <FormLabel>Your Number</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Number" type="number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
+
             <FormField
               control={form.control}
               name="password"

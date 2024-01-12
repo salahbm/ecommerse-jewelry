@@ -4,9 +4,10 @@ import { connectDB } from "../database/mongoose";
 import User from "../model/user.model";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { UserTypes } from "@/types/user";
 
 // User Actions
-export async function saveUsers(users: any) {
+export async function saveUsers(users: UserTypes) {
   if (!users) return;
 
   try {
@@ -24,13 +25,13 @@ export async function saveUsers(users: any) {
       // Create a new user with limited information
       const hashedPassword = await bcrypt.hash(users.password, 5);
       const newUser = new User({
-        username: users.name,
+        username: users.username,
         email: users.email,
         password: hashedPassword,
         personalInfo: {
           firstName: undefined,
           lastName: undefined,
-          phoneNumber: users.phoneNumber,
+          phoneNumber: undefined,
         },
         address: {
           street: undefined,
@@ -55,5 +56,95 @@ export async function saveUsers(users: any) {
     }
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
+  }
+}
+
+// Update personal information
+export async function updatePersonalInfo(
+  userId: string,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string
+) {
+  try {
+    await connectDB();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          "personalInfo.firstName": firstName,
+          "personalInfo.lastName": lastName,
+          "personalInfo.phoneNumber": phoneNumber,
+        },
+      },
+      { new: true }
+    );
+
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Failed to update personal information: ${error.message}`);
+  }
+}
+
+// Update billing information
+export async function updateBillingInfo(
+  userId: string,
+  cardNumber: string,
+  cardHolderName: string,
+  expirationDate: string,
+  cvv: string
+) {
+  try {
+    await connectDB();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          "billingInfo.cardNumber": cardNumber,
+          "billingInfo.cardHolderName": cardHolderName,
+          "billingInfo.expirationDate": expirationDate,
+          "billingInfo.cvv": cvv,
+        },
+      },
+      { new: true }
+    );
+
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Failed to update billing information: ${error.message}`);
+  }
+}
+
+// Update shipping information
+export async function updateShippingInfo(
+  userId: string,
+  street: string,
+  city: string,
+  state: string,
+  zipCode: string,
+  fullAddress: string
+) {
+  try {
+    await connectDB();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          "address.street": street,
+          "address.city": city,
+          "address.state": state,
+          "address.zipCode": zipCode,
+          "address.fullAddress": fullAddress,
+        },
+      },
+      { new: true }
+    );
+
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Failed to update shipping information: ${error.message}`);
   }
 }
