@@ -89,10 +89,12 @@ export async function updatePersonalInfo(
 // Update billing information
 export async function updateBillingInfo(
   userId: string,
-cardInfo:{  cardNumber: string,
-  cardHolderName: string,
-  expirationDate: string,
-  cvv: string}
+  cardInfo: {
+    cardNumber: string;
+    cardHolderName: string;
+    expirationDate: string;
+    cvv: string;
+  }
 ) {
   try {
     await connectDB();
@@ -121,11 +123,13 @@ cardInfo:{  cardNumber: string,
 // Update shipping information
 export async function updateShippingInfo(
   userId: string,
+user:{
   street: string,
   city: string,
   state: string,
   zipCode: string,
   fullAddress: string
+}
 ) {
   try {
     await connectDB();
@@ -134,14 +138,14 @@ export async function updateShippingInfo(
       userId,
       {
         $set: {
-          "address.street": street,
-          "address.city": city,
-          "address.state": state,
-          "address.zipCode": zipCode,
-          "address.fullAddress": fullAddress,
+          "address.street": user.street,
+          "address.city": user.city,
+          "address.state": user.state,
+          "address.zipCode": user.zipCode,
+          "address.fullAddress": user.fullAddress,
         },
       },
-      { new: true }
+      { new: true, lean: true }
     );
 
     return updatedUser;

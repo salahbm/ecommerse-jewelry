@@ -67,4 +67,5 @@ export const ShippingInfoForm = z.object({
   city: z.string().min(2, { message: 'City must be at least 2 characters long' }),
   state: z.string().min(2, { message: 'State must be at least 2 characters long' }),
   zipCode: z.string().min(5, { message: 'Zip code must be at least 5 characters long' }),
+  fullAddress: z.string().min(5, { message: 'Zip code must be at least 5 characters long' }),
 });

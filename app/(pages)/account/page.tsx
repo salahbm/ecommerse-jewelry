@@ -301,7 +301,7 @@ const Account = () => {
               ) : editForms.billing ? (
                 <BillingInfo userData={user} />
               ) : editForms.shipping ? (
-                <ShippingInfo />
+                <ShippingInfo userData={user} />
               ) : null}
             </div>
           </div>

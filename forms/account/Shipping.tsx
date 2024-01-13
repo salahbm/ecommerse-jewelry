@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, {useState} from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -14,20 +14,39 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ShippingInfoForm } from "@/lib/validation"; // Import the ShippingInfoForm schema
+import { ToastContainer, toast } from "react-toastify";
+import { UserTypes } from "@/types/user";
+import { useRouter } from "next/navigation";
+import { updateShippingInfo } from "@/lib/auth";
 
-const ShippingInfo = () => {
+const ShippingInfo =  (userData: UserTypes | any) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof ShippingInfoForm>>({
     resolver: zodResolver(ShippingInfoForm),
     defaultValues: {
-      street: "",
-      city: "",
-      state: "",
-      zipCode: "",
+      street: userData.userData?.address?.street || "",
+      city:userData.userData?.address?.city || "",
+      state: userData.userData?.address?.state || "",
+      zipCode: userData.userData?.address?.zipCode || "",
+      fullAddress: userData.userData?.address?.fullAddress || "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof ShippingInfoForm>) => {
-    // Handle submission logic
+    try {
+      setIsLoading(true);
+      if (!userData?.userData._id) return;
+      await updateShippingInfo(userData.userData?._id, values);
+      toast.success("Information is Updated!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      router.refresh();
+    } catch (error: any) {
+      console.log(`There is error updating the User data: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -88,11 +107,30 @@ const ShippingInfo = () => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="fullAddress"
+          render={({ field }: any) => (
+            <FormItem>
+              <FormLabel>Full Address</FormLabel>
+              <FormControl>
+                <Input placeholder="123 Main Street,
+Apt 4B,
+New York, NY 10001,
+United States
+" type="text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-        <Button type="submit" className="w-full">
-          Submit
+<Button type="submit" className="w-full">
+          {isLoading ? "Updating..." : "Update"}
         </Button>
+
       </form>
+      <ToastContainer />
     </Form>
   );
 };
