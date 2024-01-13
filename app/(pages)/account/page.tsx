@@ -25,7 +25,6 @@ const Account = () => {
   const { data: session, status: isLoading } = useSession();
   const [user, setUser] = useState<UserTypes>();
 
-
   const [editForms, setEditForms] = useState({
     personal: false,
     shipping: false,
@@ -300,7 +299,7 @@ const Account = () => {
               {editForms.personal ? (
                 <PersonalInfo userData={user} />
               ) : editForms.billing ? (
-                <BillingInfo />
+                <BillingInfo userData={user} />
               ) : editForms.shipping ? (
                 <ShippingInfo />
               ) : null}

@@ -89,25 +89,27 @@ export async function updatePersonalInfo(
 // Update billing information
 export async function updateBillingInfo(
   userId: string,
-  cardNumber: string,
+cardInfo:{  cardNumber: string,
   cardHolderName: string,
   expirationDate: string,
-  cvv: string
+  cvv: string}
 ) {
   try {
     await connectDB();
 
+    const cvvHash = await bcrypt.hash(cardInfo.cvv, 5);
+    const cardNumberHash = await bcrypt.hash(cardInfo.cardNumber, 5);
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
         $set: {
-          "billingInfo.cardNumber": cardNumber,
-          "billingInfo.cardHolderName": cardHolderName,
-          "billingInfo.expirationDate": expirationDate,
-          "billingInfo.cvv": cvv,
+          "billingInfo.cardNumber": cardNumberHash,
+          "billingInfo.cardHolderName": cardInfo.cardHolderName,
+          "billingInfo.expirationDate": cardInfo.expirationDate,
+          "billingInfo.cvv": cvvHash,
         },
       },
-      { new: true }
+      { new: true, lean: true }
     );
 
     return updatedUser;

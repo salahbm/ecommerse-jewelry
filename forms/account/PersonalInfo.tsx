@@ -36,7 +36,7 @@ const PersonalInfo = (userData: UserTypes | any) => {
       setIsLoading(true);
       if (!userData?.userData._id) return;
       await updatePersonalInfo(userData.userData?._id, values);
-      toast.success("Infomaiton is Updated!", {
+      toast.success("Informaiton is Updated!", {
         position: toast.POSITION.TOP_CENTER,
       });
       router.refresh();
