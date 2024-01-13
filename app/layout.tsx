@@ -28,9 +28,9 @@ export default function RootLayout({
       <body className={spaceGrotesk.className}>
         <AuthProvider session={session}>
           <main className="max-w-[1440px] mx-auto">
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </main>
         </AuthProvider>
       </body>
