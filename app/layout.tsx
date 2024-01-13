@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Kalam } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
 import AuthProvider from "@/lib/auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,9 +26,9 @@ export default function RootLayout({
       <body className={spaceGrotesk.className}>
         <AuthProvider session={session}>
           <main className="max-w-[1440px] mx-auto">
-            {/* <Navbar /> */}
+
             {children}
-            {/* <Footer /> */}
+
           </main>
         </AuthProvider>
       </body>

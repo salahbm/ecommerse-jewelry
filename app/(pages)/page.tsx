@@ -1,9 +1,10 @@
-import Home from "./(pages)/Home/page";
+import Home from "./Home/page";
+
 
 export default function App() {
   return (
     <>
-      <Home />
+<Home/>
     </>
   );
 }
