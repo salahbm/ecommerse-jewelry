@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PersonalInfoForm } from "@/lib/validation";
-import { connectDB } from "@/lib/database/mongoose";
+import { ToastContainer, toast } from "react-toastify";
 import { UserTypes } from "@/types/user";
 import { updatePersonalInfo } from "@/lib/auth";
 import { useRouter } from "next/navigation";
@@ -36,6 +36,9 @@ const PersonalInfo = (userData: UserTypes | any) => {
       setIsLoading(true);
       if (!userData?.userData._id) return;
       await updatePersonalInfo(userData.userData?._id, values);
+      toast.success("Infomaiton is Updated!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       router.refresh();
     } catch (error: any) {
       console.log(`There is error updating the User data: ${error.message}`);
@@ -104,6 +107,7 @@ const PersonalInfo = (userData: UserTypes | any) => {
           {isLoading ? "Updating..." : "Update"}
         </Button>
       </form>
+      <ToastContainer />
     </Form>
   );
 };

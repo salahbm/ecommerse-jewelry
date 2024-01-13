@@ -5,6 +5,7 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import AuthProvider from "@/lib/auth/SessionProvider";
 import { getServerSession } from "next-auth";
+import "react-toastify/dist/ReactToastify.css";
 
 const spaceGrotesk = Kalam({
   subsets: ["latin"],
