@@ -20,11 +20,12 @@ interface PersonalInfo {
 }
 
 export interface UserTypes extends Document {
+  _id?: string | undefined;
   username: string;
   email: string;
   password: string;
   passwordConfirm?: string;
-  personalInfo?: PersonalInfo[];
-  address?: Address[];
-  billingInfo?: BillingInfo[];
+  personalInfo?: PersonalInfo;
+  address?: Address;
+  billingInfo?: BillingInfo;
 }

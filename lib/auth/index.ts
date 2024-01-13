@@ -5,7 +5,6 @@ import User from "../model/user.model";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { UserTypes } from "@/types/user";
-import mongoose from "mongoose";
 
 // User Actions
 export async function saveUsers(users: UserTypes) {
@@ -63,10 +62,9 @@ export async function saveUsers(users: UserTypes) {
 // Update personal information
 export async function updatePersonalInfo(
   userId: string,
-  firstName: string,
-  lastName: string,
-  phoneNumber: string
+  personalInfo: { firstName: string; lastName: string; phoneNumber: string }
 ) {
+  console.log(`personalInfo:`, personalInfo);
   try {
     await connectDB();
 
@@ -74,17 +72,17 @@ export async function updatePersonalInfo(
       userId,
       {
         $set: {
-          "personalInfo.firstName": firstName,
-          "personalInfo.lastName": lastName,
-          "personalInfo.phoneNumber": phoneNumber,
+          "personalInfo.firstName": personalInfo.firstName,
+          "personalInfo.lastName": personalInfo.lastName,
+          "personalInfo.phoneNumber": personalInfo.phoneNumber,
         },
       },
-      { new: true }
+      { new: true, lean: true }
     );
 
     return updatedUser;
   } catch (error: any) {
-    throw new Error(`Failed to update personal information: ${error.message}`);
+    throw new Error(`Failed to update personal information: ${error}`);
   }
 }
 
@@ -154,11 +152,19 @@ export async function updateShippingInfo(
 export async function getUserByEmail(email: string) {
   try {
     await connectDB();
-    const user = await User.findOne({ email }).lean();
+    const user: UserTypes | null = await User.findOne({ email }).lean();
 
     if (!user) return null;
-
-    return user;
+    const userData = {
+      _id: user._id !== undefined ? user._id.toString() : "",
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      personalInfo: user.personalInfo,
+      address: user.address,
+      billingInfo: user.billingInfo,
+    };
+    return userData;
   } catch (error: any) {
     console.log("Can't find user by email", error.message);
     throw new Error("Error finding user by email");

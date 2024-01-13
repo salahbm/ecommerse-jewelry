@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -14,18 +14,35 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PersonalInfoForm } from "@/lib/validation";
+import { connectDB } from "@/lib/database/mongoose";
+import { UserTypes } from "@/types/user";
+import { updatePersonalInfo } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
-const PersonalInfo = () => {
+const PersonalInfo = (userData: UserTypes | any) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof PersonalInfoForm>>({
     resolver: zodResolver(PersonalInfoForm),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
+      firstName: userData.userData?.personalInfo?.firstName || "",
+      lastName: userData.userData?.personalInfo?.lastName || "",
+      phoneNumber: userData.userData?.personalInfo?.phoneNumber || "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof PersonalInfoForm>) => {};
+  const onSubmit = async (values: z.infer<typeof PersonalInfoForm>) => {
+    try {
+      setIsLoading(true);
+      if (!userData?.userData._id) return;
+      await updatePersonalInfo(userData.userData?._id, values);
+      router.refresh();
+    } catch (error: any) {
+      console.log(`There is error updating the User data: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -84,7 +101,7 @@ const PersonalInfo = () => {
         />
 
         <Button type="submit" className="w-full">
-          Submit
+          {isLoading ? "Updating..." : "Update"}
         </Button>
       </form>
     </Form>

@@ -25,6 +25,7 @@ const Account = () => {
   const { data: session, status: isLoading } = useSession();
   const [user, setUser] = useState<UserTypes>();
 
+
   const [editForms, setEditForms] = useState({
     personal: false,
     shipping: false,
@@ -297,7 +298,7 @@ const Account = () => {
             </section>
             <div className="px-5 w-full">
               {editForms.personal ? (
-                <PersonalInfo />
+                <PersonalInfo userData={user} />
               ) : editForms.billing ? (
                 <BillingInfo />
               ) : editForms.shipping ? (
