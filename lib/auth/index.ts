@@ -154,7 +154,7 @@ export async function updateShippingInfo(
 export async function getUserByEmail(email: string) {
   try {
     await connectDB();
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).lean();
 
     if (!user) return null;
 

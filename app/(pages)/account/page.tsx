@@ -23,7 +23,7 @@ import { UserTypes } from "@/types/user";
 
 const Account = () => {
   const { data: session, status: isLoading } = useSession();
-  const [user, setUser] = useState<UserTypes | any[]>([]);
+  const [user, setUser] = useState<UserTypes>();
 
   const [editForms, setEditForms] = useState({
     personal: false,
@@ -33,15 +33,16 @@ const Account = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (session?.user?.email && isLoading != "loading") {
-        const currentUser = await getUserByEmail(session?.user.email);
-        console.log(`currentUser:`, currentUser);
-        setUser(currentUser);
-      }
+      const getUserFromDB: any | null = await getUserByEmail(
+        session?.user?.email || ""
+      );
+      setUser(getUserFromDB);
     };
 
-    fetchData();
-  }, [session?.user?.email, isLoading]);
+    if (isLoading === "authenticated") {
+      fetchData();
+    }
+  }, [isLoading]);
 
   return (
     <>
@@ -56,7 +57,7 @@ const Account = () => {
                 <div className="ml-5">
                   <p className="font-medium text-gray-500">Hello,</p>
                   {session?.user && session?.user.email ? (
-                    <span className="font-bold"> {session?.user?.email}</span>
+                    <span className="font-bold"> {user?.username}</span>
                   ) : (
                     <p className="font-bold">Dear User</p>
                   )}
@@ -67,10 +68,10 @@ const Account = () => {
             <div className="flex border-b py-5">
               <div className="w-full">
                 <div className="flex w-full">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 justify-start items-center">
                     <div className="flex items-center gap-2 font-medium text-violet-900">
                       <FaAddressCard />
-                      Manage account
+                      <span>Manage account</span>
                     </div>
                     <button
                       type="button"
@@ -192,7 +193,7 @@ const Account = () => {
                   <div className="ml-5">
                     <p className="font-medium text-gray-500">Hello,</p>
                     {session?.user && session?.user.email ? (
-                      <span className="font-bold"> {session?.user?.email}</span>
+                      <span className="font-bold"> {user?.username}</span>
                     ) : (
                       <p className="font-bold">Dear User</p>
                     )}
