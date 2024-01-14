@@ -24,7 +24,7 @@ import { UserTypes } from "@/types/user";
 const Account = () => {
   const { data: session, status: isLoading } = useSession();
   const [user, setUser] = useState<UserTypes>();
-
+  const [loading, setLoading] = useState(true);
   const [editForms, setEditForms] = useState({
     personal: false,
     shipping: false,
@@ -37,6 +37,7 @@ const Account = () => {
         session?.user?.email || ""
       );
       setUser(getUserFromDB);
+      setLoading(false);
     };
 
     if (isLoading === "authenticated") {
@@ -46,7 +47,7 @@ const Account = () => {
 
   return (
     <>
-      {isLoading === "loading" ? (
+      {isLoading === "loading" && loading ? (
         <Loader />
       ) : (
         <section className="container mx-auto w-full flex-grow max-w-[1200px] border-b py-5 md:flex md:flex-row md:py-10 h-screen">

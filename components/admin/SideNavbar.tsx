@@ -3,20 +3,19 @@
 
 import { useState } from "react";
 
-
 type Props = {};
 
 import {
   ShoppingCart,
   LayoutDashboard,
   UsersRound,
-  ChevronRight
+  ChevronRight,
+  PackageSearch,
+  ShoppingBasket,
 } from "lucide-react";
 
-
-
 import { Button } from "../ui/button";
-import { useWindowWidth } from '@react-hook/window-size';
+import { useWindowWidth } from "@react-hook/window-size";
 import { Nav } from "../ui/nav";
 
 export default function SideNavbar({}: Props) {
@@ -49,21 +48,32 @@ export default function SideNavbar({}: Props) {
             title: "Dashboard",
             href: "/admin",
             icon: LayoutDashboard,
-            variant: "default"
+            variant: "default",
           },
           {
             title: "Users",
             href: "/admin/users",
             icon: UsersRound,
-            variant: "ghost"
+            variant: "ghost",
           },
           {
             title: "Orders",
             href: "/admin/orders",
             icon: ShoppingCart,
-            variant: "ghost"
+            variant: "ghost",
           },
-       
+          {
+            title: "Products",
+            href: "/admin/products",
+            icon: PackageSearch,
+            variant: "ghost",
+          },
+          {
+            title: "Add New",
+            href: "/admin/add",
+            icon: ShoppingBasket,
+            variant: "ghost",
+          },
         ]}
       />
     </div>

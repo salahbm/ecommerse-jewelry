@@ -27,7 +27,7 @@ const BillingInfo = (userData: UserTypes | any) => {
     defaultValues: {
       cardNumber: userData.userData?.billingInfo.cardNumber || "",
       cardHolderName: userData.userData?.billingInfo.cardHolderName || "",
-      expirationDate: userData.userData?.billingInfo.expirationData || "",
+      expirationDate: userData.userData?.billingInfo.expirationDate || "",
       cvv: userData.userData?.billingInfo.cvv || "",
     },
   });
