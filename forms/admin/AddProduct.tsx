@@ -7,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-
+import Image from 'next/image'
 // UploadProductPage.tsx
 
 import { useState } from 'react'
@@ -16,21 +16,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-
-const productSchema = z.object({
-  title: z.string().min(3),
-  oldPrice: z.number(),
-  newPrice: z.number(),
-  description: z.string().min(10),
-  images: z.array(z.string()).refine((val) => val.length <= 5, {
-    message: 'You can upload up to 5 images.',
-  }),
-  category: z.string(),
-  material: z.string(),
-  store: z.string(),
-  color: z.string(),
-  size: z.string(),
-})
+import { TiDelete } from 'react-icons/ti'
+import { Textarea } from '@/components/ui/textarea'
+import { productSchema } from '@/lib/validation'
 
 type ProductFormData = z.infer<typeof productSchema>
 
@@ -39,11 +27,22 @@ const UploadProductPage = () => {
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
+    defaultValues: {
+      title: '',
+      oldPrice: '',
+      newPrice: '',
+      description: '',
+      images: [],
+      category: '',
+      material: '',
+      stone: '',
+      color: '',
+      size: '',
+    },
   })
 
-  const onSubmit = (data: ProductFormData) => {
-    // Handle form submission (e.g., send data to the server)
-    console.log('Form data:', data)
+  const onSubmit = async (values: z.infer<typeof productSchema>) => {
+    console.log('Form data:', values)
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +53,13 @@ const UploadProductPage = () => {
       )
       setUploadedImages((prevImages) => [...prevImages, ...imageUrls])
     }
+  }
+
+  const deleteImage = (index: number) => {
+    const updatedImages = [...uploadedImages]
+    updatedImages.splice(index, 1)
+
+    setUploadedImages(updatedImages)
   }
 
   return (
@@ -88,6 +94,40 @@ const UploadProductPage = () => {
                   <Input
                     placeholder="Enter old price"
                     type="number"
+                    className="max-w-1/2"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="newPrice"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>New Price</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter new price"
+                    type="number"
+                    {...field}
+                    className="max-w-1/2"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Enter product description"
                     {...field}
                   />
                 </FormControl>
@@ -95,8 +135,72 @@ const UploadProductPage = () => {
             )}
           />
 
-          {/* Repeat the pattern for other form fields */}
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter category" type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
+          <FormField
+            control={form.control}
+            name="material"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>Material</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter material" type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="stone"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>Stone</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter stone" type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="color"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>Color</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter color" type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="size"
+            render={({ field }: any) => (
+              <FormItem>
+                <FormLabel>Size</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter size" type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {/* Display uploaded images */}
           <FormField
             control={form.control}
             name="images"
@@ -114,22 +218,32 @@ const UploadProductPage = () => {
               </FormItem>
             )}
           />
+          <div className="flex-wrap flex w-full">
+            {uploadedImages.map((imageUrl, index: number) => (
+              <div
+                className="relative max-w-[250px] max-h-[250px] border rounded-md m-1"
+                key={index}
+              >
+                <Image
+                  width={250}
+                  height={250}
+                  src={imageUrl}
+                  alt={`Uploaded Image ${index + 1}`}
+                  className="object-cover rounded-md "
+                />
+                <button
+                  className="text-red-600 text-xl absolute top-0 right-0"
+                  onClick={() => deleteImage(index)}
+                >
+                  <TiDelete />
+                </button>
+              </div>
+            ))}
+          </div>
 
           <Button type="submit">Submit</Button>
         </form>
       </Form>
-
-      {/* Display uploaded images */}
-      <div>
-        {uploadedImages.map((imageUrl, index) => (
-          <img
-            key={index}
-            src={imageUrl}
-            alt={`Uploaded ${index + 1}`}
-            style={{ maxWidth: '100px', maxHeight: '100px', margin: '5px' }}
-          />
-        ))}
-      </div>
     </div>
   )
 }
