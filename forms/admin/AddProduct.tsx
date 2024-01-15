@@ -24,6 +24,7 @@ type ProductFormData = z.infer<typeof productSchema>
 
 const UploadProductPage = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([])
+  console.log(`uploadedImages:`, uploadedImages)
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
