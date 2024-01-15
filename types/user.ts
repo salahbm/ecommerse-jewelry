@@ -35,7 +35,7 @@ export type ProductTypes = {
   oldPrice: string
   newPrice: string
   description: string
-  images: string[]
+  images: any[]
   category: string
   material: string
   stone: string

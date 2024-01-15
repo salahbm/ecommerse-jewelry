@@ -86,9 +86,7 @@ export const productSchema = z.object({
   oldPrice: z.string(),
   newPrice: z.string(),
   description: z.string().min(10),
-  images: z.array(z.string()).refine((val) => val.length <= 5, {
-    message: 'You can upload up to 5 images.',
-  }),
+  images:z.any(),
   category: z.string(),
   material: z.string(),
   stone: z.string(),

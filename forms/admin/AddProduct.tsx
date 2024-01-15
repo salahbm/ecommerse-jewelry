@@ -2,6 +2,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -10,7 +11,7 @@ import {
 import Image from 'next/image'
 // UploadProductPage.tsx
 
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -19,12 +20,12 @@ import { Button } from '@/components/ui/button'
 import { TiDelete } from 'react-icons/ti'
 import { Textarea } from '@/components/ui/textarea'
 import { productSchema } from '@/lib/validation'
+import { storeProduct } from '@/lib/admin/add-product'
 
 type ProductFormData = z.infer<typeof productSchema>
 
 const UploadProductPage = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([])
-  console.log(`uploadedImages:`, uploadedImages)
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
@@ -44,16 +45,7 @@ const UploadProductPage = () => {
 
   const onSubmit = async (values: z.infer<typeof productSchema>) => {
     console.log('Form data:', values)
-  }
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (files) {
-      const imageUrls = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      )
-      setUploadedImages((prevImages) => [...prevImages, ...imageUrls])
-    }
+    // await storeProduct(values)
   }
 
   const deleteImage = (index: number) => {
@@ -61,6 +53,20 @@ const UploadProductPage = () => {
     updatedImages.splice(index, 1)
 
     setUploadedImages(updatedImages)
+  }
+
+  function getImageData(event: ChangeEvent<HTMLInputElement>) {
+    const dataTransfer = new DataTransfer()
+    const displayUrls: string[] = []
+
+    Array.from(event.target.files!).forEach((image) => {
+      dataTransfer.items.add(image)
+      displayUrls.push(URL.createObjectURL(image))
+    })
+
+    const files = dataTransfer.files
+
+    return { files, displayUrls }
   }
 
   return (
@@ -205,20 +211,35 @@ const UploadProductPage = () => {
           <FormField
             control={form.control}
             name="images"
-            render={({ field }: any) => (
-              <FormItem>
-                <FormLabel>Images</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    multiple
-                  />
-                </FormControl>
-              </FormItem>
+            render={({ field: { onChange, value, ...rest } }) => (
+              <>
+                <FormItem>
+                  <FormLabel> Images</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      {...rest}
+                      onChange={(event) => {
+                        const { files, displayUrls } = getImageData(event)
+                        onChange(files)
+                        setUploadedImages((prevImages) => [
+                          ...prevImages,
+                          ...displayUrls,
+                        ])
+                      }}
+                      multiple
+                    />
+                  </FormControl>
+
+                  <FormDescription>
+                    Choose up to 5 images that bring spirits to your circle.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              </>
             )}
           />
+
           <div className="flex-wrap flex w-full">
             {uploadedImages.map((imageUrl, index: number) => (
               <div
@@ -229,7 +250,7 @@ const UploadProductPage = () => {
                   width={250}
                   height={250}
                   src={imageUrl}
-                  alt={`Uploaded Image ${index + 1}`}
+                  alt={`Uploaded Image `}
                   className="object-cover rounded-md "
                 />
                 <button

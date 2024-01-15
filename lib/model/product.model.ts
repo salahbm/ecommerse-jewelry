@@ -8,7 +8,6 @@ const productSchema = new mongoose.Schema({
   description: { type: String, minlength: 10 },
   images: {
     type: [String],
-    validate: [(val: any) => val.length <= 5, 'You can upload up to 5 images.'],
   },
   category: { type: String },
   material: { type: String },
