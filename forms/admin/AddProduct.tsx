@@ -45,7 +45,33 @@ const UploadProductPage = () => {
 
   const onSubmit = async (values: z.infer<typeof productSchema>) => {
     console.log('Form data:', values)
-    // await storeProduct(values)
+    try {
+      const response = await fetch(`/api/admin/store-item`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+
+      if (!response.ok) {
+        // Handle server errors
+        const errorData = await response.json()
+        console.error('Server Error:', response.status, errorData)
+        // Display error message to the user
+        // You might also want to redirect or navigate to an error page
+        return
+      }
+
+      const data = await response.json()
+      console.log(`data:`, data)
+      // Handle successful response
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error('Error:', error)
+      // Display a generic error message to the user
+      // You might also want to redirect or navigate to an error page
+    }
   }
 
   const deleteImage = (index: number) => {
@@ -55,16 +81,27 @@ const UploadProductPage = () => {
     setUploadedImages(updatedImages)
   }
 
-  function getImageData(event: ChangeEvent<HTMLInputElement>) {
-    const dataTransfer = new DataTransfer()
+  async function getImageData(event: ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files
+
+    if (!files) {
+      return { files: null, displayUrls: [] }
+    }
+
     const displayUrls: string[] = []
 
-    Array.from(event.target.files!).forEach((image) => {
-      dataTransfer.items.add(image)
-      displayUrls.push(URL.createObjectURL(image))
-    })
+    // Map each file to a Promise that resolves to its object URL
+    const objectUrlPromises = Array.from(files).map(
+      (image) =>
+        new Promise<string>((resolve) => {
+          const objectUrl = URL.createObjectURL(image)
+          displayUrls.push(objectUrl)
+          resolve(objectUrl)
+        })
+    )
 
-    const files = dataTransfer.files
+    // Wait for all Promises to resolve before returning the result
+    await Promise.all(objectUrlPromises)
 
     return { files, displayUrls }
   }
@@ -219,8 +256,8 @@ const UploadProductPage = () => {
                     <Input
                       type="file"
                       {...rest}
-                      onChange={(event) => {
-                        const { files, displayUrls } = getImageData(event)
+                      onChange={async (event) => {
+                        const { files, displayUrls } = await getImageData(event)
                         onChange(files)
                         setUploadedImages((prevImages) => [
                           ...prevImages,

@@ -5,6 +5,7 @@ import { ProductTypes } from '@/types/user'
 import { v2 as cloudinary } from 'cloudinary'
 
 export async function storeProduct(productData: ProductTypes) {
+  console.log(productData)
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -12,7 +13,7 @@ export async function storeProduct(productData: ProductTypes) {
   })
   try {
     const cloudinaryUploads = await Promise.all(
-      productData.images.map(async (imageFile) => {
+      (productData.images as any).map(async (imageFile: string) => {
         // Use the file instead of imageUrl
         const response = await cloudinary.uploader.upload(imageFile)
         return response.secure_url
