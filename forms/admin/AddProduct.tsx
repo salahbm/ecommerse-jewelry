@@ -81,29 +81,30 @@ const UploadProductPage = () => {
     setUploadedImages(updatedImages)
   }
 
-  async function getImageData(event: ChangeEvent<HTMLInputElement>) {
+  const getImageData = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
+    console.log(`files:`, files)
 
-    if (!files) {
-      return { files: null, displayUrls: [] }
+    if (files) {
+      const displayUrls: string[] = []
+
+      const fileArray = Array.from(files)
+      const filePromises = fileArray.map(async (file) => {
+        const url = URL.createObjectURL(file)
+        displayUrls.push(url)
+
+        return file
+      })
+      console.log(`filePromises:`, filePromises)
+
+      const resolvedFiles = await Promise.all(filePromises)
+      console.log(`resolvedFiles:`, resolvedFiles)
+
+      console.log(`displayUrls:`, displayUrls)
+      return { files: resolvedFiles, displayUrls }
     }
 
-    const displayUrls: string[] = []
-
-    // Map each file to a Promise that resolves to its object URL
-    const objectUrlPromises = Array.from(files).map(
-      (image) =>
-        new Promise<string>((resolve) => {
-          const objectUrl = URL.createObjectURL(image)
-          displayUrls.push(objectUrl)
-          resolve(objectUrl)
-        })
-    )
-
-    // Wait for all Promises to resolve before returning the result
-    await Promise.all(objectUrlPromises)
-
-    return { files, displayUrls }
+    return { files: [], displayUrls: [] }
   }
 
   return (

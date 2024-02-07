@@ -16,9 +16,11 @@ export async function storeProduct(productData: ProductTypes) {
       (productData.images as any).map(async (imageFile: string) => {
         // Use the file instead of imageUrl
         const response = await cloudinary.uploader.upload(imageFile)
+        console.log(`response:`, response)
         return response.secure_url
       })
     )
+    console.log(`cloudinaryUploads:`, cloudinaryUploads)
 
     // Update the product data with Cloudinary image URLs
     const productDataWithImages: ProductTypes = {
