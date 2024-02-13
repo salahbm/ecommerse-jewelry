@@ -46,12 +46,20 @@ const UploadProductPage = () => {
   const onSubmit = async (values: z.infer<typeof productSchema>) => {
     console.log('Form data:', values)
     try {
+      const files: File[] = [...values.images]
+
+      const updatedValues = {
+        ...values,
+        images: files,
+      }
+
+      console.log('Updated form data:', updatedValues)
       const response = await fetch(`/api/admin/store-item`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(updatedValues),
       })
 
       if (!response.ok) {
@@ -253,7 +261,7 @@ const UploadProductPage = () => {
                 <FormItem>
                   <FormLabel> Images</FormLabel>
                   <FormControl>
-                    <Input
+                    <input
                       type="file"
                       {...rest}
                       onChange={async (event) => {

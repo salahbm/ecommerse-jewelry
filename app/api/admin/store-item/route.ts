@@ -1,15 +1,13 @@
 'use server'
 
-import { storeProduct } from "@/lib/admin/add-product"
+import { storeProduct } from '@/lib/admin/add-product'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
     console.log(`body:`, body)
 
-
-
-    const response =  await storeProduct(body)
+    const response = await storeProduct(body)
 
     if (response) {
       const data = await response.json()
@@ -17,17 +15,18 @@ export async function POST(request: Request) {
       return new Response(
         JSON.stringify({
           message: 'Api Response:',
-          data: data,
+          data: response,
         }),
         { status: 200 }
       )
     } else {
-      const errorData = await response.json()
-      console.error('Response from API:', response.status, errorData)
-
-      return new Response(JSON.stringify(errorData), {
-        status: response.status,
-      })
+      console.error('Response from API:', response.status)
+      return new Response(
+        JSON.stringify({ error: 'Failed to store product' }),
+        {
+          status: 500,
+        }
+      )
     }
   } catch (error) {
     console.error('Error:', error)
