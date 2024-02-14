@@ -18,6 +18,7 @@ const Products = () => {
         setLoading(true)
         const _allProducts: any = await getALlProducts()
         if (_allProducts) {
+          console.log(`_allProducts:`, _allProducts)
           setAllProducts(_allProducts)
         }
       } catch (error) {
