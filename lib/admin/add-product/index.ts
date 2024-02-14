@@ -42,3 +42,5 @@ export async function storeProduct(productData: ProductTypes) {
     throw error
   }
 }
+
+

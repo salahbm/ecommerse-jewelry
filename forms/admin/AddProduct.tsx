@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/button'
 import { TiDelete } from 'react-icons/ti'
 import { Textarea } from '@/components/ui/textarea'
 import { productSchema } from '@/lib/validation'
-import { storeProduct } from '@/lib/admin/add-product'
+import {  storeProduct } from '@/lib/admin/add-product'
 
 type ProductFormData = z.infer<typeof productSchema>
 
@@ -44,22 +44,14 @@ const UploadProductPage = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof productSchema>) => {
-    console.log('Form data:', values)
     try {
-      const files: File[] = [...values.images]
-
-      const updatedValues = {
-        ...values,
-        images: files,
-      }
-
-      console.log('Updated form data:', updatedValues)
+      console.log('values:', values)
       const response = await fetch(`/api/admin/store-item`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedValues),
+        body: JSON.stringify(values),
       })
 
       if (!response.ok) {
@@ -73,7 +65,6 @@ const UploadProductPage = () => {
 
       const data = await response.json()
       console.log(`data:`, data)
-      // Handle successful response
     } catch (error) {
       // Handle network errors or other exceptions
       console.error('Error:', error)
@@ -89,14 +80,23 @@ const UploadProductPage = () => {
     setUploadedImages(updatedImages)
   }
 
+  async function convertBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = (error) => reject(error)
+    })
+  }
+
   async function getImageData(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files
+    const imgFiles: string[] = []
+    const displayUrls: string[] = []
 
     if (!files) {
-      return { files: null, displayUrls: [] }
+      return { imgFiles: [], displayUrls: [] }
     }
-
-    const displayUrls: string[] = []
 
     // Map each file to a Promise that resolves to its object URL
     const objectUrlPromises = Array.from(files).map(
@@ -111,7 +111,13 @@ const UploadProductPage = () => {
     // Wait for all Promises to resolve before returning the result
     await Promise.all(objectUrlPromises)
 
-    return { files, displayUrls }
+    // Convert each file to base64 and push into imgFiles array
+    for (let i = 0; i < files.length; i++) {
+      const base64 = await convertBase64(files[i])
+      imgFiles.push(base64)
+    }
+
+    return { imgFiles, displayUrls }
   }
 
   return (
@@ -261,12 +267,14 @@ const UploadProductPage = () => {
                 <FormItem>
                   <FormLabel> Images</FormLabel>
                   <FormControl>
-                    <input
+                    <Input
                       type="file"
                       {...rest}
                       onChange={async (event) => {
-                        const { files, displayUrls } = await getImageData(event)
-                        onChange(files)
+                        const { imgFiles, displayUrls } = await getImageData(
+                          event
+                        )
+                        onChange(imgFiles)
                         setUploadedImages((prevImages) => [
                           ...prevImages,
                           ...displayUrls,
