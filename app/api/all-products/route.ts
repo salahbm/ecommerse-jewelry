@@ -1,13 +1,9 @@
-'use server'
+import { getALlProducts } from '@/lib/admin/add-product'
 
-import { storeProduct } from '@/lib/admin/add-product'
-
-export async function POST(request: Request) {
+export async function GET(res: Response) {
   try {
-    const body = await request.json()
-
-    const response = await storeProduct(body)
-
+    const response = await getALlProducts()
+console.log(response)
     if (response) {
       return new Response(
         JSON.stringify({
@@ -17,7 +13,7 @@ export async function POST(request: Request) {
         { status: 200 }
       )
     } else {
-      console.error('Response from API:', response.status)
+      console.error('Response from API:', response)
       return new Response(
         JSON.stringify({ error: 'Failed to store product' }),
         {
@@ -25,7 +21,7 @@ export async function POST(request: Request) {
         }
       )
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error:', error)
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
       status: 500,

@@ -20,7 +20,8 @@ import { Button } from '@/components/ui/button'
 import { TiDelete } from 'react-icons/ti'
 import { Textarea } from '@/components/ui/textarea'
 import { productSchema } from '@/lib/validation'
-import {  storeProduct } from '@/lib/admin/add-product'
+import { storeProduct } from '@/lib/admin/add-product'
+import { ToastContainer, toast } from 'react-toastify'
 
 type ProductFormData = z.infer<typeof productSchema>
 
@@ -56,20 +57,26 @@ const UploadProductPage = () => {
 
       if (!response.ok) {
         // Handle server errors
-        const errorData = await response.json()
-        console.error('Server Error:', response.status, errorData)
+        console.log(`response:`, response)
+        toast.success('ERROR adding Product', {
+          position: toast.POSITION.TOP_CENTER,
+          type: 'error',
+        })
         // Display error message to the user
         // You might also want to redirect or navigate to an error page
         return
+      } else {
+        toast.success('Product added successfully', {
+          position: toast.POSITION.TOP_CENTER,
+        })
       }
-
-      const data = await response.json()
-      console.log(`data:`, data)
     } catch (error) {
       // Handle network errors or other exceptions
       console.error('Error:', error)
-      // Display a generic error message to the user
-      // You might also want to redirect or navigate to an error page
+      toast.success('ERROR adding Product', {
+        position: toast.POSITION.TOP_CENTER,
+        type: 'error',
+      })
     }
   }
 
@@ -319,6 +326,7 @@ const UploadProductPage = () => {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
+      <ToastContainer />
     </div>
   )
 }
