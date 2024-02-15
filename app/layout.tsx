@@ -1,37 +1,33 @@
-import type { Metadata } from "next";
-import { Kalam } from "next/font/google";
-import "./globals.css";
-import AuthProvider from "@/lib/auth/SessionProvider";
-import { getServerSession } from "next-auth";
-import "react-toastify/dist/ReactToastify.css";
+import type { Metadata } from 'next'
+import { Kalam } from 'next/font/google'
+import './globals.css'
+import AuthProvider from '@/lib/auth/SessionProvider'
+import { getServerSession } from 'next-auth'
+import 'react-toastify/dist/ReactToastify.css'
 
 const spaceGrotesk = Kalam({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-});
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+})
 
 export const metadata: Metadata = {
-  title: "Welcome: Joni & Co",
-  description: "Precious jewelries to make stunning memories",
-};
+  title: 'Welcome: Joni & Co',
+  description: 'Precious jewelries to make stunning memories',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const session = getServerSession();
+  const session = getServerSession()
   return (
     <html lang="en">
       <body className={spaceGrotesk.className}>
         <AuthProvider session={session}>
-          <main className="max-w-[1440px] mx-auto">
-
-            {children}
-
-          </main>
+          <main className="max-w-[1440px] mx-auto">{children}</main>
         </AuthProvider>
       </body>
     </html>
-  );
+  )
 }
