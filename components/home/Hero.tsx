@@ -1,28 +1,28 @@
-"use client";
-import React, { useState } from "react";
-import slider_img_1 from "../../public/assets/images/ring/ring-1.png";
-import slider_img_2 from "../../public/assets/images/chain/chain.png";
-import slider_img_3 from "../../public/assets/images/ring/ring-2.png";
-import slider_img_4 from "../../public/assets/images/ring/ring-3.png";
-import nav_icon_1 from "../../public/assets/images/stone/stone.png";
-import nav_icon_2 from "../../public/assets/images/stone/stone-1.png";
-import nav_icon_3 from "../../public/assets/images/stone/stone-2.png";
-import nav_icon_4 from "../../public/assets/images/stone/stone-3.png";
+'use client'
+import React, { useState } from 'react'
+import slider_img_1 from '../../public/assets/images/ring/ring-1.png'
+import slider_img_2 from '../../public/assets/images/chain/chain.png'
+import slider_img_3 from '../../public/assets/images/ring/ring-2.png'
+import slider_img_4 from '../../public/assets/images/ring/ring-3.png'
+import nav_icon_1 from '../../public/assets/images/stone/stone.png'
+import nav_icon_2 from '../../public/assets/images/stone/stone-1.png'
+import nav_icon_3 from '../../public/assets/images/stone/stone-2.png'
+import nav_icon_4 from '../../public/assets/images/stone/stone-3.png'
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Image from "next/image";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Image from 'next/image'
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
+import { Button } from '../ui/button'
+import Link from 'next/link'
 // slider data
 const slider_data = [
-  { subtitle: "The original", title: "Shine bright", img: slider_img_1 },
-  { subtitle: "The original", title: "Creative Design", img: slider_img_2 },
-  { subtitle: "The original", title: "Gold Plateted", img: slider_img_3 },
-  { subtitle: "The original", title: "Unique shapes", img: slider_img_4 },
-];
+  { subtitle: 'The original', title: 'Shine bright', img: slider_img_1 },
+  { subtitle: 'The original', title: 'Creative Design', img: slider_img_2 },
+  { subtitle: 'The original', title: 'Gold Plateted', img: slider_img_3 },
+  { subtitle: 'The original', title: 'Unique shapes', img: slider_img_4 },
+]
 
 // slider nav data
 const slider_nav_data = [
@@ -42,11 +42,11 @@ const slider_nav_data = [
     icon: nav_icon_4,
     title: <>Diamond Necklaces</>,
   },
-];
+]
 
 const HomeHero = () => {
-  const [slider1, setSlider1] = useState<any>(null);
-  const [slider2, setSlider2] = useState<any>(null);
+  const [slider1, setSlider1] = useState<any>(null)
+  const [slider2, setSlider2] = useState<any>(null)
 
   // slider setting
   const main_slider_setting = {
@@ -56,7 +56,7 @@ const HomeHero = () => {
     arrows: false,
     fade: true,
     centerMode: false,
-  };
+  }
   // nav slider setting
   const nav_slider_setting = {
     infinite: true,
@@ -67,9 +67,9 @@ const HomeHero = () => {
     arrows: false,
     centerMode: false,
     focusOnSelect: true,
-  };
+  }
   return (
-    <div className="relative bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#D2691E] mb-2 md:max-h-[650px] max-h-[450px] rounded-b-md">
+    <div className="relative bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#D2691E] mb-2 md:max-h-[550px] max-h-[450px] rounded-b-md">
       <Slider
         {...main_slider_setting}
         asNavFor={slider2}
@@ -82,7 +82,7 @@ const HomeHero = () => {
               src={item.img}
               alt="slider img"
               priority
-              className="object-contain w-full md:max-h-[650px] max-h-[450px]"
+              className="object-contain w-full md:max-h-[550px] max-h-[450px]"
             />
 
             <h3 className="absolute top-24 font-bold md:top-1/4 md:right-10 -right-16 text-white text-[32px] md:text-[44px]  md:text-center -rotate-90 md:rotate-0">
@@ -133,7 +133,7 @@ const HomeHero = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomeHero;
+export default HomeHero
