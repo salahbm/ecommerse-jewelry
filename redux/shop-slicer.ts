@@ -21,6 +21,13 @@ export const shopSlicer = createSlice({
     setProductData: (state, action: PayloadAction<ProductTypes[]>) => {
       state.productData = action.payload
     },
+    removeProductById: (state, action: PayloadAction<string>) => {
+      const productIdToRemove = action.payload
+      // Use filter to create a new array excluding the product with the specified ID
+      state.productData = state.productData.filter(
+        (product) => product._id !== productIdToRemove
+      )
+    },
     // addToCart: (state, action) => {
     //   const item = state.productData.find(
     //     (item: any) => item._id === action.payload._id
@@ -81,6 +88,7 @@ export const shopSlicer = createSlice({
 
 export const {
   setProductData,
+  removeProductById,
   //   addToCart,
   //   plusQuantity,
   //   minusQuantity,

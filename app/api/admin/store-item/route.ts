@@ -1,6 +1,6 @@
 'use server'
 
-import { storeProduct } from '@/lib/admin/add-product'
+import { storeProduct } from '@/lib/admin/product'
 
 export async function POST(request: Request) {
   try {

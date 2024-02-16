@@ -1,6 +1,6 @@
 'use server'
 import { ProductTypes } from '@/types/user'
-import { getAllProducts } from '../admin/add-product'
+import { getAllProducts } from '../admin/product'
 
 export const checkTheTimeAndFetch = async (productData: ProductTypes[]) => {
   try {

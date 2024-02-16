@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/button'
 import { TiDelete } from 'react-icons/ti'
 import { Textarea } from '@/components/ui/textarea'
 import { productSchema } from '@/lib/validation'
-import { storeProduct } from '@/lib/admin/add-product'
+import { storeProduct } from '@/lib/admin/product'
 import { ToastContainer, toast } from 'react-toastify'
 
 type ProductFormData = z.infer<typeof productSchema>
