@@ -98,12 +98,13 @@ export async function deleteProductByID(productId: string) {
 
     if (!deletedProduct) {
       // If product not found, you can return null or throw an error
-      return true
-    } else {
-      return false
+      return null // or throw new Error('Product not found');
     }
+
+    // Return true to indicate successful deletion
+    return true
   } catch (error: any) {
-    console.log(error.message)
+    console.error(error.message)
     throw new Error(`Failed to delete product by ID: ${error.message}`)
   }
 }

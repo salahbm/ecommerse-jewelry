@@ -38,12 +38,15 @@ export default function ProductsPage({}: Props) {
   const [loading, setLoading] = useState(false)
 
   const handleDeleteProduct = async (id: string) => {
+    setLoading(true)
     const response = await deleteProductByID(id)
     if (response) {
       dispatch(removeProductById(id))
+      setLoading(false)
       toast.success('Product removed successfully', {
         position: toast.POSITION.TOP_CENTER,
       })
+
     } else {
       toast.error('Error removing product', {
         position: toast.POSITION.TOP_CENTER,
