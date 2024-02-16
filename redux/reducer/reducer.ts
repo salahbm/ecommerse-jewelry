@@ -11,7 +11,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
-import createSensitiveStorage from 'redux-persist-sensitive-storage'
 import shopSlicer from '../shop-slicer'
 import storage from 'redux-persist/lib/storage'
 
