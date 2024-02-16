@@ -4,6 +4,7 @@ import './globals.css'
 import AuthProvider from '@/lib/auth/SessionProvider'
 import { getServerSession } from 'next-auth'
 import 'react-toastify/dist/ReactToastify.css'
+import StoreProvider from './store-provider'
 
 const spaceGrotesk = Kalam({
   subsets: ['latin'],
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={spaceGrotesk.className}>
-        <AuthProvider session={session}>
-          <main className="max-w-[1440px] mx-auto">{children}</main>
-        </AuthProvider>
+        <StoreProvider>
+          <AuthProvider session={session}>
+            <main className="max-w-[1440px] mx-auto">{children}</main>
+          </AuthProvider>
+        </StoreProvider>
       </body>
     </html>
   )

@@ -13,6 +13,7 @@ import {
 } from 'redux-persist'
 import createSensitiveStorage from 'redux-persist-sensitive-storage'
 import shopSlicer from '../shop-slicer'
+import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
   shop: shopSlicer,
@@ -20,16 +21,13 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
   key: 'root',
-  storage: createSensitiveStorage({
-    keychainService: 'mrJoni&Co',
-    sharedPreferencesName: 'mrJoni&Co-sharedPreferences',
-  }),
+  storage: storage,
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 // Initialize redux store
-const store = configureStore({
+export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV === 'development',
   middleware: (getDefaultMiddleware) =>
@@ -41,9 +39,3 @@ const store = configureStore({
 })
 
 export const persistor = persistStore(store)
-export default store
-
-export type AppStore = ReturnType<typeof persistor>
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
