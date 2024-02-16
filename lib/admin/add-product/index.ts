@@ -66,3 +66,44 @@ export async function getAllProducts() {
     throw new Error(`Failed to get products: ${error.message}`)
   }
 }
+
+export async function getProductByID(productId: string) {
+  try {
+    await connectDB()
+    // Find product by ID
+    const product: ProductTypes | null = await Product.findById(
+      productId
+    ).lean()
+
+    if (!product) {
+      // If product not found, you can return null or throw an error
+      return null
+    } else {
+      return {
+        ...product,
+        quantity: product?.quantity || 0,
+      }
+    }
+  } catch (error: any) {
+    console.log(error.message)
+    throw new Error(`Failed to get product by ID: ${error.message}`)
+  }
+}
+
+export async function deleteProductByID(productId: string) {
+  try {
+    await connectDB()
+    // Delete product by ID
+    const deletedProduct = await Product.findByIdAndDelete(productId)
+
+    if (!deletedProduct) {
+      // If product not found, you can return null or throw an error
+      return true
+    } else {
+      return false
+    }
+  } catch (error: any) {
+    console.log(error.message)
+    throw new Error(`Failed to delete product by ID: ${error.message}`)
+  }
+}

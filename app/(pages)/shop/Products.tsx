@@ -1,37 +1,37 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { FaHeart, FaCartPlus } from 'react-icons/fa';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ProductTypes } from '@/types/user';
-import { Loader } from '@/components/shared/Loader';
-import { useDispatch, useSelector } from 'react-redux';
-import { likedProducts, setProductData, unlikeItem } from '@/redux/shop-slicer';
-import { checkTheTimeAndFetch } from '@/lib/actions';
+'use client'
+import React, { useEffect, useState } from 'react'
+import { FaHeart, FaCartPlus } from 'react-icons/fa'
+import Link from 'next/link'
+import Image from 'next/image'
+import { ProductTypes } from '@/types/user'
+import { Loader } from '@/components/shared/Loader'
+import { useDispatch, useSelector } from 'react-redux'
+import { likedProducts, setProductData, unlikeItem } from '@/redux/shop-slicer'
+import { checkTheTimeAndFetch } from '@/lib/actions'
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const likedItem = useSelector((state: any) => state.shop.likedItem);
-  const products = useSelector((state: any) => state.shop.productData);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
+  const likedItem = useSelector((state: any) => state.shop.likedItem)
+  const products = useSelector((state: any) => state.shop.productData)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchRecentStores = async () => {
       try {
-        setLoading(true);
-        const getProduct: any = await checkTheTimeAndFetch(products);
+        setLoading(true)
+        const getProduct: any = await checkTheTimeAndFetch(products)
         if (getProduct) {
-          dispatch(setProductData(getProduct));
+          dispatch(setProductData(getProduct))
         }
       } catch (error) {
-        console.log(`error:`, error);
+        console.log(`error:`, error)
       }
       {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchRecentStores();
-  }, []);
+    }
+    fetchRecentStores()
+  }, [])
   return (
     <div className="w-full px-3 lg:w-3/4">
       <div className="px-3 ">
@@ -45,7 +45,6 @@ const Products = () => {
                 className="block w-40 text-base bg-gray-100 dark:text-gray-400 dark:bg-gray-900"
               >
                 <option value="">Sort by latest</option>
-                <option value="">Sort by Popularity</option>
                 <option value="">Sort by Price</option>
               </select>
             </div>
@@ -76,7 +75,7 @@ const Products = () => {
                       alt="ProductImage"
                       width={500}
                       height={500}
-                      className="object-contain w-full h-56 mx-auto"
+                      className="object-contain w-full h-56"
                     />
                   </Link>
 
@@ -162,7 +161,7 @@ const Products = () => {
         </nav>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products

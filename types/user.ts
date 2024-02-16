@@ -43,4 +43,5 @@ export type ProductTypes = {
   color: string
   size: string
   last_updated?: string
+  quantity?: number
 }
