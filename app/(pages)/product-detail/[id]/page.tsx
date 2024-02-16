@@ -4,6 +4,7 @@ import React from 'react'
 import { getProductByID } from '@/lib/admin/product'
 import { Loader } from '@/components/shared/Loader'
 import ProductImgCarousel from '@/components/admin/Carusel'
+import AddProductFooter from '@/components/shop/Add-product'
 
 interface pageProps {
   params: { id: string }
@@ -12,9 +13,7 @@ interface pageProps {
 const ProductDetail = async ({ params }: pageProps) => {
   let loading = true
   if (!params) redirect('/shop')
-  console.log(`params:`, params)
   const product: any = await getProductByID(params.id)
-  console.log(`product:`, product)
   if (!product) {
     redirect('/shop')
   } else {
@@ -54,9 +53,6 @@ const ProductDetail = async ({ params }: pageProps) => {
                         ${product.oldPrice}
                       </span>
                     </p>
-                    <p className="text-green-600 dark:text-green-300 ">
-                      7 in stock
-                    </p>
                   </div>
                   <div className="flex items-center mb-8">
                     <h2 className="w-16 mr-6 text-xl font-bold dark:text-gray-400">
@@ -64,9 +60,17 @@ const ProductDetail = async ({ params }: pageProps) => {
                     </h2>
                     <div className="flex flex-wrap -mx-2 -mb-2">
                       <button className="p-1 mb-2 mr-2 border border-transparent hover:border-orange-400 dark:border-gray-800 dark:hover:border-gray-400 ">
-                        <div className="w-6 h-6 bg-cyan-300">
-                          {product?.color}
-                        </div>
+                        <div>{product?.color}</div>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex items-center mb-8">
+                    <h2 className="w-16 mr-6 text-xl font-bold dark:text-gray-400">
+                      Material:
+                    </h2>
+                    <div className="flex flex-wrap -mx-2 -mb-2">
+                      <button className="p-1 mb-2 mr-2 border border-transparent hover:border-orange-400 dark:border-gray-800 dark:hover:border-gray-400 ">
+                        <p>{product?.material}</p>
                       </button>
                     </div>
                   </div>
@@ -76,20 +80,11 @@ const ProductDetail = async ({ params }: pageProps) => {
                     </h2>
                     <div className="flex flex-wrap -mx-2 -mb-2">
                       <button className="py-1 mb-2 mr-1 border w-11 hover:border-orange-400 dark:border-gray-400 hover:text-orange-600 dark:hover:border-gray-300 dark:text-gray-400">
-                        XL
-                      </button>
-                      <button className="py-1 mb-2 mr-1 border w-11 hover:border-orange-400 hover:text-orange-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">
-                        S
-                      </button>
-                      <button className="py-1 mb-2 mr-1 border w-11 hover:border-orange-400 hover:text-orange-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">
-                        M
-                      </button>
-                      <button className="py-1 mb-2 mr-1 border w-11 hover:border-orange-400 hover:text-orange-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">
-                        XS
+                        {product.size}
                       </button>
                     </div>
                   </div>
-                  <div className="w-32 mb-8 ">
+                  {/* <div className="w-32 mb-8 ">
                     <label
                       htmlFor=""
                       className="w-full text-xl font-semibold text-gray-700 dark:text-gray-400"
@@ -109,19 +104,8 @@ const ProductDetail = async ({ params }: pageProps) => {
                         <span className="m-auto text-2xl font-thin">+</span>
                       </button>
                     </div>
-                  </div>
-                  <div className="flex flex-wrap items-center -mx-4 ">
-                    <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
-                      <button className="flex items-center justify-center w-full p-4 text-orange-500 border border-orange-500 rounded-md dark:text-gray-200 dark:border-orange-600 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-orange-600 dark:hover:bg-orange-700 dark:hover:border-orange-700 dark:hover:text-gray-300">
-                        Add to Cart
-                      </button>
-                    </div>
-                    <div className="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">
-                      <button className="flex items-center justify-center w-full p-4 text-orange-500 border border-orange-500 rounded-md dark:text-gray-200 dark:border-orange-600 hover:bg-orange-600 hover:border-orange-600 hover:text-gray-100 dark:bg-orange-600 dark:hover:bg-orange-700 dark:hover:border-orange-700 dark:hover:text-gray-300">
-                        Add to wishlist
-                      </button>
-                    </div>
-                  </div>
+                  </div> */}
+                  <AddProductFooter product={product} />
                 </div>
               </div>
             </div>

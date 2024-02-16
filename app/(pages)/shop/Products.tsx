@@ -104,10 +104,9 @@ const Products = () => {
                 </div>
                 <div className="p-4 bg-gray-50 dark:bg-gray-900">
                   <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-md lg:text-xl font-medium dark:text-gray-400 overflow-hidden overflow-ellipsis h-12 lg:h-auto">
-{product.title}
-</h3>
-
+                    <h3 className="text-md lg:text-xl font-medium dark:text-gray-400 overflow-hidden overflow-ellipsis h-12">
+                      {product.title}
+                    </h3>
 
                     <p className="text-lg ">
                       <span className="text-lime-500 dark:text-gray-400 mx-1">

@@ -113,10 +113,10 @@ const HomeHero = () => {
         </Slider>
       </div>
       <Link
-        href="/products"
+        href="/shop"
         className="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
-        <Button type="button">Discover Now</Button>
+        <Button type="button" variant={'link'}>Discover Now</Button>
       </Link>
       <div className="absolute right-10 bottom-10 z-1 cursor-pointer text-neutral-700">
         <button
