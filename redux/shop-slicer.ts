@@ -76,9 +76,6 @@ export const shopSlicer = createSlice({
         (item: any) => item?._id !== action.payload
       )
     },
-    resetLikedItems: (state) => {
-      state.likedItem = []
-    },
   },
 })
 
@@ -91,6 +88,5 @@ export const {
   resetCart,
   likedProducts,
   unlikeItem,
-  resetLikedItems,
 } = shopSlicer.actions
 export default shopSlicer.reducer

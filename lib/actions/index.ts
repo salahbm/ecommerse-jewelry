@@ -14,10 +14,10 @@ export const checkTheTimeAndFetch = async (productData: ProductTypes[]) => {
     }
 
     // If the length of productData is at least 2, check the last updated time
-    const getTime: any = productData[0].last_updated
-    console.log(Date.now() - getTime > 1000)
+    const lastUpdatedString = productData[0].last_updated
+    const getTime = new Date(lastUpdatedString).getTime()
 
-    if (getTime ) {
+    if (Date.now() - getTime > 5 * 60 * 1000) {
       console.log('Fetching updated product data')
 
       const updatedCoins = await getAllProducts()
