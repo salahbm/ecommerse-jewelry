@@ -67,26 +67,23 @@ const ProductImgCarousel = ({ images }: { images: string[] | any }) => {
           ))
         )}
       </Slider>
-      <div className="absolute bottom-[30px] font-semibold md:bottom-1/4 md:left-8 left-2 text-white  md:max-h-[100px] max-h-[50px]">
+      <div className="absolute bottom-[70px] font-semibold md:bottom-1/4 md:left-8 left-2 text-white  md:max-h-[100px] max-h-[50px]">
         <Slider
           {...nav_slider_setting}
           asNavFor={slider1}
           ref={(slider) => setSlider2(slider)}
         >
-   {images.map((item: any, i: number) => (
-<div>
-
-    <Image
-    key={i}
-      width={100}
-      height={100}
-      src={item}
-      alt="icon"
-      className="w-10 h-10 object-contain border border-neutral-500 p-1 rounded-md"
-    />
-</div>
-))}
-
+          {images.map((item: any, i: number) => (
+            <div key={i}>
+              <Image
+                width={100}
+                height={100}
+                src={item}
+                alt="icon"
+                className="w-10 h-10 object-contain border border-neutral-500 p-1 rounded-md"
+              />
+            </div>
+          ))}
         </Slider>
       </div>
 

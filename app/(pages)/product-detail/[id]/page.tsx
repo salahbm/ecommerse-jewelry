@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { getProductByID } from '@/lib/admin/product'
 import { Loader } from '@/components/shared/Loader'
-import ProductImgCarousel from '@/components/admin/Carusel'
+import ProductImgCarousel from '@/components/shop/Carusel'
 import AddProductFooter from '@/components/shop/Add-product'
 
 interface pageProps {
@@ -36,7 +36,7 @@ const ProductDetail = async ({ params }: pageProps) => {
               </div>
               <div className="w-full px-4 md:w-1/2 ">
                 <div className="lg:pl-20">
-                  <div className="mb-8 ">
+                  <div className="mb-4 border-b border-gray-500">
                     <span className="text-lg font-medium text-rose-500 dark:text-rose-200">
                       New
                     </span>
@@ -47,7 +47,7 @@ const ProductDetail = async ({ params }: pageProps) => {
                     <p className="max-w-md mb-8 text-gray-700 dark:text-gray-400">
                       {product.description}
                     </p>
-                    <p className="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
+                    <p className="inline-block mb-8 text-4xl font-bold text-lime-700 dark:text-gray-400 ">
                       <span>${product?.newPrice}</span>
                       <span className="text-base font-normal text-gray-500 line-through dark:text-gray-400">
                         ${product.oldPrice}
