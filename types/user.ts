@@ -31,6 +31,7 @@ export interface UserTypes extends Document {
 }
 
 export type ProductTypes = {
+  _id?: string
   title: string
   oldPrice: string
   newPrice: string
@@ -41,4 +42,5 @@ export type ProductTypes = {
   stone: string
   color: string
   size: string
+  last_updated?: string
 }

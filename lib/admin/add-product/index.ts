@@ -45,19 +45,24 @@ export async function storeProduct(productData: ProductTypes) {
 }
 
 // fetch all product from DB
-export async function getALlProducts() {
+export async function getAllProducts() {
   try {
     await connectDB()
     // Find all products
-    const stores = await Product.find().sort({ createdAt: -1 }).lean()
+    const products = await Product.find().sort({ createdAt: -1 }).lean()
 
-    if (stores.length === 0) {
+    if (products.length === 0) {
       return []
     } else {
-      return  await JSON.parse(JSON.stringify(stores));
+      const currentTime = new Date()
+      return products.map((item) => ({
+        ...item,
+        quantity: item.quantity || 0,
+        last_updated: currentTime,
+      }))
     }
   } catch (error: any) {
     console.log(error.message)
-    throw new Error(`Failed to get stores: ${error.message}`)
+    throw new Error(`Failed to get products: ${error.message}`)
   }
 }

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { ProductTypes } from '@/types/user'
 import { UserTypes } from '../types/user'
 
@@ -16,8 +16,11 @@ const initialState: ShopState = {
 
 export const shopSlicer = createSlice({
   name: 'shop',
-  initialState,
+  initialState: initialState,
   reducers: {
+    setProductData: (state, action: PayloadAction<ProductTypes[]>) => {
+      state.productData = action.payload
+    },
     // addToCart: (state, action) => {
     //   const item = state.productData.find(
     //     (item: any) => item._id === action.payload._id
@@ -80,6 +83,7 @@ export const shopSlicer = createSlice({
 })
 
 export const {
+  setProductData,
   //   addToCart,
   //   plusQuantity,
   //   minusQuantity,

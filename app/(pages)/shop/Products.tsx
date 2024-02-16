@@ -5,25 +5,33 @@ import { FaHeart, FaCartPlus } from 'react-icons/fa'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ProductTypes } from '@/types/user'
-import { getALlProducts } from '@/lib/admin/add-product'
 import { Loader } from '@/components/shared/Loader'
+import { useDispatch, useSelector } from 'react-redux'
+import { likedProducts, setProductData, unlikeItem } from '@/redux/shop-slicer'
+import { checkTheTimeAndFetch } from '@/lib/actions'
 
 const Products = () => {
+  const dispatch = useDispatch()
+  const likedItem = useSelector((state: any) => state.shop.likedItem)
+  const products = useSelector((state: any) => state.shop.productData)
+  console.log(`products:`, products)
   const [allProducts, setAllProducts] = useState<ProductTypes[]>([])
+  console.log(`allProducts:`, allProducts)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchRecentStores = async () => {
       try {
         setLoading(true)
-        const _allProducts: any = await getALlProducts()
-        if (_allProducts) {
-          console.log(`_allProducts:`, _allProducts)
-          setAllProducts(_allProducts)
+        const getProduct: any = await checkTheTimeAndFetch(products)
+        if (getProduct) {
+          setAllProducts(getProduct)
+          dispatch(setProductData(getProduct))
         }
       } catch (error) {
         console.log(`error:`, error)
-      } finally {
+      }
+      {
         setLoading(false)
       }
     }
@@ -53,11 +61,17 @@ const Products = () => {
         <Loader />
       ) : (
         <div className="flex flex-wrap items-center">
-          {allProducts?.map((product, _id) => (
-            <div key={_id} className="w-full px-3 my-2 sm:w-1/2 md:w-1/3">
+          {products.map((product: ProductTypes) => (
+            <div
+              key={product?._id}
+              className="w-full px-3 my-2 sm:w-1/2 md:w-1/3"
+            >
               <div className="border border-gray-200 rounded-md dark:border-gray-800">
                 <div className="relative bg-gray-200">
-                  <Link href={`/product-detail/${_id}`} className="p-1">
+                  <Link
+                    href={`/product-detail/${product?._id}`}
+                    className="p-1"
+                  >
                     <Image
                       src={
                         product.images.length > 0
@@ -71,8 +85,25 @@ const Products = () => {
                     />
                   </Link>
 
-                  <div className="absolute top-0 right-0 z-10 flex items-center justify-center w-12 h-12  text-center ">
-                    <FaHeart className="text-red-500 dark:text-gray-400  text-lg" />
+                  <div
+                    className={`absolute top-0 right-0 z-10 flex items-center justify-center w-12 h-12  text-center`}
+                  >
+                    <FaHeart
+                      className={`${
+                        likedItem.find(
+                          (item: ProductTypes) => item._id === product._id
+                        )
+                          ? 'text-red-500'
+                          : 'text-neutral-500'
+                      } dark:text-gray-400  text-lg`}
+                      onClick={() =>
+                        likedItem.find(
+                          (item: ProductTypes) => item._id === product._id
+                        )
+                          ? dispatch(unlikeItem(product))
+                          : dispatch(likedProducts(product))
+                      }
+                    />
                   </div>
                 </div>
                 <div className="p-4 bg-gray-50 dark:bg-gray-900">
