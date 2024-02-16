@@ -90,21 +90,24 @@ const Products = () => {
                           ? 'text-red-500'
                           : 'text-neutral-500'
                       } dark:text-gray-400  text-lg`}
-                      onClick={() =>
-                        likedItem.find(
+                      onClick={() => {
+                        const isLiked = likedItem.find(
                           (item: ProductTypes) => item._id === product._id
                         )
-                          ? dispatch(unlikeItem(product))
+
+                        isLiked
+                          ? dispatch(unlikeItem(product._id))
                           : dispatch(likedProducts(product))
-                      }
+                      }}
                     />
                   </div>
                 </div>
                 <div className="p-4 bg-gray-50 dark:bg-gray-900">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-medium dark:text-gray-400">
-                      {product.title}
-                    </h3>
+                  <h3 className="text-md lg:text-xl font-medium dark:text-gray-400 overflow-hidden overflow-ellipsis h-12 lg:h-auto">
+{product.title}
+</h3>
+
 
                     <p className="text-lg ">
                       <span className="text-lime-500 dark:text-gray-400 mx-1">
@@ -117,7 +120,7 @@ const Products = () => {
                   </div>
 
                   <div className="flex flex-row items-center justify-between ">
-                    <p className="text-base font-normal text-gray-400 dark:text-gray-400">
+                    <p className="text-sm md:text-md font-normal text-gray-400 dark:text-gray-400 max-h-[80px] md:max-h-[110px] overflow-hidden">
                       <span>{product.description}</span>
                     </p>
                     <button className="flex justify-center px-4 py-2 text-amber-600 border border-amber-300 rounded-md dark:border-gray-600 dark:text-gray-400 hover:bg-amber-700 hover:text-gray-100 dark:hover:bg-gray-800 dark:hover:border-gray-900">
