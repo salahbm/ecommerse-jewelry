@@ -1,100 +1,92 @@
-import AboutSection from "@/components/home/About";
-import Features from "@/components/home/Features";
-import SocialMediaSection from "@/components/home/Socials";
-import Image from "next/image";
-import { FaPlus, FaMinus } from "react-icons/fa";
-
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc: "/assets/images/ring/ring-1.png",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc: "/assets/images/ear-ring/ear-ring-1.png",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
+'use client'
+import Features from '@/components/home/Features'
+import SocialMediaSection from '@/components/home/Socials'
+import { Loader } from '@/components/shared/Loader'
+import { ProductTypes } from '@/types/user'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
+import { FaPlus, FaMinus } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+  const cartProducts = useSelector((state: any) => state.shop.cart)
+  // if (cartProducts) {
+  //   setLoading(false)
+  // }
+  console.log(`cartProducts:`, cartProducts)
   return (
     <div>
       <div className="flex h-full flex-col md:flex-row  overflow-y-scroll bg-white shadow-md rounded-md">
         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 border-r ">
           <div className="mt-8">
             <div className="flow-root">
-              <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {products.map((product) => (
-                  <li key={product.id} className="flex py-6">
-                    <div className="h-64 w-64 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                      <Image
-                        width={500}
-                        height={500}
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
-                        className="h-full w-full object-cover object-center p-1"
-                      />
-                    </div>
-
-                    <div className="ml-4 flex flex-1 flex-col">
-                      <div>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3>
-                            <a href={product.href}>{product.name}</a>
-                          </h3>
-                          <p className="ml-4">{product.price}</p>
-                        </div>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {product.color}
-                        </p>
+              {loading ? (
+                <Loader />
+              ) : (
+                <ul role="list" className="-my-6 divide-y divide-gray-200">
+                  {cartProducts.map((product: ProductTypes) => (
+                    <li key={product._id} className="flex py-6">
+                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <Image
+                          width={200}
+                          height={200}
+                          src={product.images[0]}
+                          alt={product.title}
+                          className="h-full w-full object-cover object-center p-1"
+                        />
                       </div>
-                      <div className="flex flex-1 items-end justify-between text-sm">
-                        <div className="flex flex-row justify-center items-center">
-                          <button
-                            type="button"
-                            className="font-medium text-lime-600 hover:text-amber-500"
-                          >
-                            <FaPlus />
-                          </button>
-                          <p className="text-neutral-600 font-serif text-xl font-semibold mx-2">
-                            {product.quantity}
+
+                      <div className="ml-4 flex flex-1 flex-col">
+                        <div>
+                          <div className="flex justify-between text-base font-medium text-gray-900">
+                            <h3>
+                              <Link href={`/product-detail/${product?._id}`}>
+                                {product.title}
+                              </Link>
+                            </h3>
+                            <p className="ml-4">{product.newPrice}</p>
+                          </div>
+                          <p className="mt-1 text-sm text-gray-500">
+                            {product.color}
                           </p>
-
-                          <button
-                            type="button"
-                            className="font-medium text-red-600 hover:text-amber-500"
-                          >
-                            <FaMinus />
-                          </button>
                         </div>
+                        <div className="flex flex-1 items-end justify-between text-sm">
+                          <div className="flex flex-row justify-center items-center">
+                            <button
+                              type="button"
+                              className="font-medium text-lime-600 hover:text-amber-500"
+                            >
+                              <FaPlus />
+                            </button>
+                            <p className="text-neutral-600 font-serif text-xl font-semibold mx-2">
+                              {product.quantity}
+                            </p>
 
-                        <div className="flex">
-                          <button
-                            type="button"
-                            className="font-medium text-amber-600 hover:text-amber-500"
-                          >
-                            Remove
-                          </button>
+                            <button
+                              type="button"
+                              className="font-medium text-red-600 hover:text-amber-500"
+                            >
+                              <FaMinus />
+                            </button>
+                          </div>
+
+                          <div className="flex">
+                            <button
+                              type="button"
+                              className="font-medium text-amber-600 hover:text-amber-500"
+                            >
+                              Remove
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -131,9 +123,9 @@ const Cart = () => {
         </div>
       </div>
       <Features />
-      <AboutSection />
+      {/* <AboutSection /> */}
     </div>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

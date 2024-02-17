@@ -6,8 +6,14 @@ import Image from 'next/image'
 import { ProductTypes } from '@/types/user'
 import { Loader } from '@/components/shared/Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { likedProducts, setProductData, unlikeItem } from '@/redux/shop-slicer'
+import {
+  addToCart,
+  likedProducts,
+  setProductData,
+  unlikeItem,
+} from '@/redux/shop-slicer'
 import { checkTheTimeAndFetch } from '@/lib/actions'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -122,7 +128,15 @@ const Products = () => {
                     <p className="text-sm md:text-md font-normal text-gray-400 dark:text-gray-400 max-h-[80px] md:max-h-[110px] overflow-hidden">
                       <span>{product.description}</span>
                     </p>
-                    <button className="flex justify-center px-4 py-2 text-amber-600 border border-amber-300 rounded-md dark:border-gray-600 dark:text-gray-400 hover:bg-amber-700 hover:text-gray-100 dark:hover:bg-gray-800 dark:hover:border-gray-900">
+                    <button
+                      onClick={() => {
+                        dispatch(addToCart(product)),
+                          toast.success('Added to Cart', {
+                            position: toast.POSITION.TOP_CENTER,
+                          })
+                      }}
+                      className="flex justify-center px-4 py-2 text-amber-600 border border-amber-300 rounded-md dark:border-gray-600 dark:text-gray-400 hover:bg-amber-700 hover:text-gray-100 dark:hover:bg-gray-800 dark:hover:border-gray-900"
+                    >
                       <FaCartPlus />
                     </button>
                   </div>
@@ -162,6 +176,7 @@ const Products = () => {
           </ul>
         </nav>
       </div>
+      <ToastContainer />
     </div>
   )
 }

@@ -6,12 +6,14 @@ interface ShopState {
   productData: ProductTypes[]
   userInfo: null | UserTypes
   likedItem: ProductTypes[]
+  cart: ProductTypes[]
 }
 
 const initialState: ShopState = {
   productData: [],
   userInfo: null,
   likedItem: [],
+  cart: [],
 }
 
 export const shopSlicer = createSlice({
@@ -29,27 +31,31 @@ export const shopSlicer = createSlice({
       )
     },
     addToCart: (state, action) => {
-      const item = state.productData.find(
-        (item: any) => item._id === action.payload._id
-      )
+      // Ensure state.cart is an array
+      if (!Array.isArray(state.cart)) {
+        state.cart = []
+      }
+
+      const item = state.cart.find((item) => item._id === action.payload._id)
 
       if (item) {
         item.quantity += action.payload.quantity
       } else {
-        state.productData.push(action.payload)
+        state.cart.push({ ...action.payload, quantity: 1 })
       }
     },
+
     plusQuantity: (state, action) => {
-      const item = state.productData.find(
-        (item: any) => item._id === action.payload._id
+      const item: any = state.cart.find(
+        (item) => item._id === action.payload._id
       )
       if (item) {
         item.quantity++
       }
     },
     minusQuantity: (state, action) => {
-      const item = state.productData.find(
-        (item: any) => item._id === action.payload._id
+      const item: any = state.cart.find(
+        (item) => item._id === action.payload._id
       )
       if (item?.quantity === 1) {
         item.quantity = 1
@@ -58,13 +64,10 @@ export const shopSlicer = createSlice({
       }
     },
     deleteItem: (state, action) => {
-      state.productData = state.productData.filter(
-        (item) => item._id !== action.payload
-      )
+      state.cart = state.cart.filter((item) => item._id !== action.payload)
     },
-
     resetCart: (state) => {
-      state.productData = []
+      state.cart = []
     },
     // liked products
     likedProducts: (state, action) => {
