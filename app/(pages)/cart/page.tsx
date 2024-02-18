@@ -2,6 +2,12 @@
 import Features from '@/components/home/Features'
 import SocialMediaSection from '@/components/home/Socials'
 import { Loader } from '@/components/shared/Loader'
+import {
+  deleteItem,
+  minusQuantity,
+  plusQuantity,
+  resetCart,
+} from '@/redux/shop-slicer'
 import { ProductTypes } from '@/types/user'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,10 +19,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
   const cartProducts = useSelector((state: any) => state.shop.cart)
-  // if (cartProducts) {
-  //   setLoading(false)
-  // }
-  console.log(`cartProducts:`, cartProducts)
+
   return (
     <div>
       <div className="flex h-full flex-col md:flex-row  overflow-y-scroll bg-white shadow-md rounded-md">
@@ -26,7 +29,7 @@ const Cart = () => {
               {loading ? (
                 <Loader />
               ) : (
-                <ul role="list" className="-my-6 divide-y divide-gray-200">
+                <ul role="list" className=" divide-y divide-gray-200">
                   {cartProducts.map((product: ProductTypes) => (
                     <li key={product._id} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -47,18 +50,18 @@ const Cart = () => {
                                 {product.title}
                               </Link>
                             </h3>
-                            <p className="ml-4">{product.newPrice}</p>
+                            <p className="ml-4">${product.newPrice}</p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">
-                            {product.color}
-                          </p>
+                          <p className="ml-4 text-right">${product.newPrice}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <div className="flex flex-row justify-center items-center">
                             <button
                               type="button"
                               className="font-medium text-lime-600 hover:text-amber-500"
+                              onClick={() => dispatch(plusQuantity(product))}
                             >
+                              {' '}
                               <FaPlus />
                             </button>
                             <p className="text-neutral-600 font-serif text-xl font-semibold mx-2">
@@ -68,6 +71,7 @@ const Cart = () => {
                             <button
                               type="button"
                               className="font-medium text-red-600 hover:text-amber-500"
+                              onClick={() => dispatch(minusQuantity(product))}
                             >
                               <FaMinus />
                             </button>
@@ -77,6 +81,7 @@ const Cart = () => {
                             <button
                               type="button"
                               className="font-medium text-amber-600 hover:text-amber-500"
+                              onClick={() => dispatch(deleteItem(product._id))}
                             >
                               Remove
                             </button>

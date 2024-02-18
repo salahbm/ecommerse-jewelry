@@ -66,6 +66,7 @@ export const shopSlicer = createSlice({
     deleteItem: (state, action) => {
       state.cart = state.cart.filter((item) => item._id !== action.payload)
     },
+
     resetCart: (state) => {
       state.cart = []
     },
