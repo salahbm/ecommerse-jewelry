@@ -11,14 +11,31 @@ import {
 import { ProductTypes } from '@/types/user'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
   const [loading, setLoading] = useState(false)
+  const [totalAMT, setTotalAMT] = useState('')
   const dispatch = useDispatch()
   const cartProducts = useSelector((state: any) => state.shop.cart)
+  const totalPriceOfProduct = (product: ProductTypes) => {
+    if (!product.quantity) {
+      return product.newPrice
+    }
+    return (product.newPrice * product?.quantity).toFixed(1)
+  }
+
+  useEffect(() => {
+    let price = 0
+
+    cartProducts.map((item: any) => {
+      price += item.newPrice * item.quantity
+      return price
+    })
+    setTotalAMT(price.toFixed(2))
+  }, [cartProducts])
 
   return (
     <div>
@@ -36,7 +53,11 @@ const Cart = () => {
                         <Image
                           width={200}
                           height={200}
-                          src={product.images[0]}
+                          src={
+                            product.images.length > 0
+                              ? product.images[0]
+                              : '/assets/icons/no-image.svg'
+                          }
                           alt={product.title}
                           className="h-full w-full object-cover object-center p-1"
                         />
@@ -52,7 +73,9 @@ const Cart = () => {
                             </h3>
                             <p className="ml-4">${product.newPrice}</p>
                           </div>
-                          <p className="ml-4 text-right">${product.newPrice}</p>
+                          <p className="ml-4 text-right">
+                            ${totalPriceOfProduct(product)}
+                          </p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <div className="flex flex-row justify-center items-center">
@@ -101,7 +124,7 @@ const Cart = () => {
           <div>
             <div className="flex justify-between text-base font-medium text-gray-900 mt-2">
               <p>Subtotal</p>
-              <p>$262.00</p>
+              <p>${totalAMT}</p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes calculated at checkout.

@@ -33,8 +33,8 @@ export interface UserTypes extends Document {
 export type ProductTypes = {
   _id?: string
   title: string
-  oldPrice: string
-  newPrice: string
+  oldPrice: number
+  newPrice: number
   description: string
   images?: any | undefined
   category: string

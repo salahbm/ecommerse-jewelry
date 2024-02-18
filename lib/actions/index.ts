@@ -31,3 +31,4 @@ export const checkTheTimeAndFetch = async (productData: ProductTypes[]) => {
     console.log(error)
   }
 }
+
