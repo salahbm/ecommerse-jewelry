@@ -5,6 +5,7 @@ import AuthProvider from '@/lib/auth/SessionProvider'
 import { getServerSession } from 'next-auth'
 import 'react-toastify/dist/ReactToastify.css'
 import StoreProvider from './store-provider'
+import NextTopLoader from 'nextjs-toploader'
 
 const spaceGrotesk = Kalam({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={spaceGrotesk.className}>
         <StoreProvider>
           <AuthProvider session={session}>
+            <NextTopLoader color="#7B8290" />
             <main className="max-w-[1440px] mx-auto">{children}</main>
           </AuthProvider>
         </StoreProvider>
