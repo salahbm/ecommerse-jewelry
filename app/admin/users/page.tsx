@@ -5,154 +5,80 @@
  */
 
 /** @format */
-"use client";
+'use client'
 
-import { DataTable } from "@/components/admin/DataTable";
-import PageTitle from "@/components/admin/PageTitle";
-import { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from '@/components/admin/DataTable'
+import PageTitle from '@/components/admin/PageTitle'
+import { Loader } from '@/components/shared/Loader'
+import { getAllUsers } from '@/lib/admin/users'
+import { UserTypes } from '@/types/user'
+import { ColumnDef } from '@tanstack/react-table'
+import { log } from 'console'
+import { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 
-
-
-
-type Props = {};
+type Props = {}
 type Payment = {
-  name: string;
-  email: string;
-  lastOrder: string;
-  method: string;
-};
+  name: string
+  email: string
+  lastOrder: string
+  method: string
+}
 
 const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: 'username',
+    header: 'Username',
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
           <img
             className="h-10 w-10"
             src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${row.getValue(
-              "name"
+              'username'
             )}`}
             alt="user-image"
           />
-          <p>{row.getValue("name")} </p>
+          <p>{row.getValue('username')} </p>
         </div>
-      );
-    }
+      )
+    },
   },
   {
-    accessorKey: "email",
-    header: "Email"
+    accessorKey: 'email',
+    header: 'Email',
   },
   {
-    accessorKey: "lastOrder",
-    header: "Last Order"
+    accessorKey: 'lastOrder',
+    header: 'Last Order',
   },
-  {
-    accessorKey: "method",
-    header: "Method"
-  }
-];
-
-const data: Payment[] = [
-  {
-    name: "John Doe",
-    email: "john@example.com",
-    lastOrder: "2023-01-01",
-    method: "Credit Card"
-  },
-  {
-    name: "Alice Smith",
-    email: "alice@example.com",
-    lastOrder: "2023-02-15",
-    method: "PayPal"
-  },
-  {
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    lastOrder: "2023-03-20",
-    method: "Stripe"
-  },
-  {
-    name: "Emma Brown",
-    email: "emma@example.com",
-    lastOrder: "2023-04-10",
-    method: "Venmo"
-  },
-  {
-    name: "Michael Davis",
-    email: "michael@example.com",
-    lastOrder: "2023-05-05",
-    method: "Cash"
-  },
-  {
-    name: "Sophia Wilson",
-    email: "sophia@example.com",
-    lastOrder: "2023-06-18",
-    method: "Bank Transfer"
-  },
-  {
-    name: "Liam Garcia",
-    email: "liam@example.com",
-    lastOrder: "2023-07-22",
-    method: "Payoneer"
-  },
-  {
-    name: "Olivia Martinez",
-    email: "olivia@example.com",
-    lastOrder: "2023-08-30",
-    method: "Apple Pay"
-  },
-  {
-    name: "Noah Rodriguez",
-    email: "noah@example.com",
-    lastOrder: "2023-09-12",
-    method: "Google Pay"
-  },
-  {
-    name: "Ava Lopez",
-    email: "ava@example.com",
-    lastOrder: "2023-10-25",
-    method: "Cryptocurrency"
-  },
-  {
-    name: "Elijah Hernandez",
-    email: "elijah@example.com",
-    lastOrder: "2023-11-05",
-    method: "Alipay"
-  },
-  {
-    name: "Mia Gonzalez",
-    email: "mia@example.com",
-    lastOrder: "2023-12-08",
-    method: "WeChat Pay"
-  },
-  {
-    name: "James Perez",
-    email: "james@example.com",
-    lastOrder: "2024-01-18",
-    method: "Square Cash"
-  },
-  {
-    name: "Charlotte Carter",
-    email: "charlotte@example.com",
-    lastOrder: "2024-02-22",
-    method: "Zelle"
-  },
-  {
-    name: "Benjamin Taylor",
-    email: "benjamin@example.com",
-    lastOrder: "2024-03-30",
-    method: "Stripe"
-  }
-];
+]
 
 export default function UsersPage({}: Props) {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    async function fetchData() {
+    try {
+      setLoading(true)
+      const getUsers: UserTypes[] | any = await getAllUsers()
+      if (getUsers.length > 0) {
+        setUsers(getUsers)
+        setLoading(false)
+      }
+    } catch (error: any) {
+      console.log(error.message)
+      toast.error('Error fetching all users', {
+        position: toast.POSITION.TOP_CENTER,
+      })
+    }}
+    fetchData()
+  }, [])
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Users" />
-      <DataTable columns={columns} data={data} />
+      {loading ? <Loader /> : <DataTable columns={columns} data={users} />}
+      <ToastContainer />
     </div>
-  );
+  )
 }
